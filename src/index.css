@@ -1,0 +1,93 @@
+@import "./styles/fonts.css";
+
+:root {
+  color: #fff8ed;
+  background: #160c08;
+  font-family: Georgia, "Times New Roman", serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  max-width: 100%;
+  background: #160c08;
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: clip;
+  background: #160c08;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+html[data-debug-mobile="1"] body::before {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  z-index: 10000;
+  padding: 6px 8px;
+  border: 1px solid rgba(72, 202, 228, 0.72);
+  border-radius: 4px;
+  background: rgba(10, 20, 28, 0.84);
+  color: #d7fbff;
+  content: "debugMobile";
+  font: 700 11px/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  pointer-events: none;
+}
+
+html[data-debug-mobile="1"][data-mobile-overflow] body::before {
+  border-color: rgba(255, 92, 92, 0.9);
+  color: #ffe2e2;
+  content: "debugMobile: overflow";
+}
+
+html[data-debug-mobile="1"] section {
+  outline: 1px dashed rgba(72, 202, 228, 0.5);
+  outline-offset: -1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

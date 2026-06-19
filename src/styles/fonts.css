@@ -1,0 +1,103 @@
+@font-face {
+  font-family: "Client VL Aurora Aged";
+  src: url("../assets/fonts/VLAURORAAGED.OTF") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Client Bastliga";
+  src: url("../assets/fonts/1FTV-VIP-Bastliga-One-Regular.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Client Courier New";
+  src: url("../assets/fonts/cour.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Client Courier New";
+  src: url("../assets/fonts/courbd.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Client Courier New";
+  src: url("../assets/fonts/couri.ttf") format("truetype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Client Courier New";
+  src: url("../assets/fonts/courbi.ttf") format("truetype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Client Playfair Display";
+  src: url("../assets/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400 900;
+}
+
+@font-face {
+  font-family: "Client Playfair Display";
+  src: url("../assets/fonts/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf") format("truetype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400 900;
+}
+
+@font-face {
+  font-family: "Client Cormorant SC";
+  src: url("../assets/fonts/Cormorant_SC/CormorantSC-Regular.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Client Cormorant SC";
+  src: url("../assets/fonts/Cormorant_SC/CormorantSC-Medium.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Client Cormorant SC";
+  src: url("../assets/fonts/Cormorant_SC/CormorantSC-SemiBold.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Client Cormorant SC";
+  src: url("../assets/fonts/Cormorant_SC/CormorantSC-Bold.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
+:root {
+  --font-client-aurora: "Client VL Aurora Aged", "VL Aurora Aged", "Great Vibes", "Dancing Script", cursive;
+  --font-client-bastliga: "Client Bastliga", "1FTV VIP Bastliga One", "Great Vibes", "Parisienne", cursive;
+  --font-client-courier: "Client Courier New", "Courier New", Courier, monospace;
+  --font-client-playfair: "Client Playfair Display", "Playfair Display", "Times New Roman", serif;
+  --font-client-cormorant-sc: "Client Cormorant SC", "Cormorant SC", "Times New Roman", serif;
+}

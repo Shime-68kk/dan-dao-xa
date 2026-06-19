@@ -1,0 +1,135 @@
+.scene14 {
+  position: relative;
+  width: 100%;
+  min-height: var(--scene14-rendered-height);
+  height: var(--scene14-rendered-height);
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #160c08;
+}
+
+.scene14__scale-shell {
+  position: relative;
+  width: 100%;
+  height: var(--scene14-rendered-height);
+  overflow: hidden;
+}
+
+.scene14__artboard {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1366px;
+  height: 768px;
+  overflow: hidden;
+  transform: scale(var(--scene14-scale, 1));
+  transform-origin: top left;
+}
+
+.scene14__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 1366px;
+  height: 768px;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.scene14-copy {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--font-client-courier, "Client Courier New", "Courier New", monospace);
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 500;
+  letter-spacing: 0.012em;
+  color: rgba(255, 255, 255, 0.88);
+  text-align: right;
+  text-indent: 0;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.48);
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+.scene14-copy--first {
+  left: 628px;
+  top: 116px;
+  width: 640px;
+}
+
+.scene14-copy--second {
+  left: 708px;
+  top: 244px;
+  width: 560px;
+  text-align: justify;
+  text-align-last: right;
+  text-indent: 0;
+  hyphens: none;
+  word-spacing: -0.02em;
+  transition-delay: 180ms;
+}
+
+.scene14.is-visible .scene14-copy {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (max-width: 767px) {
+  .scene14 {
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .scene14__scale-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .scene14__artboard {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 100svh;
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+    padding: 96px 7vw;
+    box-sizing: border-box;
+    overflow: hidden;
+    transform: none;
+  }
+
+  .scene14__bg {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+  }
+
+  .scene14-copy,
+  .scene14-copy--first,
+  .scene14-copy--second {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 86vw;
+    font-size: 12px;
+    line-height: 1.58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene14-copy {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

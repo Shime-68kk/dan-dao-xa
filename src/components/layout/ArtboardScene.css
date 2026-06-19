@@ -1,0 +1,23 @@
+.artboard-scene {
+  position: relative;
+  width: 100%;
+  height: calc(var(--artboard-base-height) * var(--artboard-scale, 1));
+  overflow: clip;
+}
+
+.artboard-scene__shell {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--artboard-base-width);
+  height: var(--artboard-base-height);
+  transform: translateX(-50%) scale(var(--artboard-scale, 1));
+  transform-origin: top center;
+}
+
+.artboard-scene__stage {
+  position: relative;
+  width: var(--artboard-base-width);
+  height: var(--artboard-base-height);
+  overflow: hidden;
+}

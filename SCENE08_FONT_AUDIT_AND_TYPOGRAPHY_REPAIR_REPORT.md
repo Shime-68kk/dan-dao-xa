@@ -1,0 +1,164 @@
+# Scene08 Font Audit And Typography Repair Report
+
+## Scope
+- Patched only:
+  - `/home/quang/Documents/brief-1/project/src/sections/page01/Scene08LastLink/Scene08LastLink.jsx`
+  - `/home/quang/Documents/brief-1/project/src/sections/page01/Scene08LastLink/Scene08LastLink.css`
+- `src/styles/fonts.css` was audited but not changed.
+- Scene01-Scene07 were not touched.
+- Scene08 Part 2 was not added.
+- Customer/body/quote text was not changed.
+- The 1366px artboard scaling model was not changed.
+
+## Exact Font Files Found
+- `src/assets/fonts/1FTV-VIP-Bastliga-One-Regular.otf`
+  - family: `1FTV VIP Bastliga One`
+  - fullname: `1FTV VIP Bastliga One`
+- `src/assets/fonts/Cormorant_SC/CormorantSC-Bold.ttf`
+  - family: `Cormorant SC`
+  - fullname: `Cormorant SC Bold`
+- `src/assets/fonts/Cormorant_SC/CormorantSC-Light.ttf`
+  - family: `Cormorant SC`
+  - fullname: `Cormorant SC Light`
+- `src/assets/fonts/Cormorant_SC/CormorantSC-Medium.ttf`
+  - family: `Cormorant SC`
+  - fullname: `Cormorant SC Medium`
+- `src/assets/fonts/Cormorant_SC/CormorantSC-Regular.ttf`
+  - family: `Cormorant SC`
+  - fullname: `Cormorant SC Regular`
+- `src/assets/fonts/Cormorant_SC/CormorantSC-SemiBold.ttf`
+  - family: `Cormorant SC`
+  - fullname: `Cormorant SC SemiBold`
+- `src/assets/fonts/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Italic`
+- `src/assets/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Regular`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-Black.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Black`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-BlackItalic.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Black Italic`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-Bold.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Bold`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-BoldItalic.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Bold Italic`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-ExtraBold.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display ExtraBold`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-ExtraBoldItalic.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display ExtraBold Italic`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-Italic.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Italic`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-Medium.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Medium`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-MediumItalic.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Medium Italic`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display Regular`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-SemiBold.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display SemiBold`
+- `src/assets/fonts/Playfair_Display/static/PlayfairDisplay-SemiBoldItalic.ttf`
+  - family: `Playfair Display`
+  - fullname: `Playfair Display SemiBold Italic`
+- `src/assets/fonts/VLAURORAAGED.OTF`
+  - family: `VL Aurora Aged`
+  - fullname: `VL AuroraAged`
+- `src/assets/fonts/cour.ttf`
+  - family: `Courier New`
+  - fullname: `Courier New`
+- `src/assets/fonts/courbd.ttf`
+  - family: `Courier New`
+  - fullname: `Courier New Bold`
+- `src/assets/fonts/courbi.ttf`
+  - family: `Courier New`
+  - fullname: `Courier New Bold Italic`
+- `src/assets/fonts/couri.ttf`
+  - family: `Courier New`
+  - fullname: `Courier New Italic`
+
+## Missing Fonts
+- `ROCA ONE`: not found.
+- `SG85-HONG`: not found.
+- Because both are absent, Scene08 no longer references those missing font families.
+
+## Method Used For `ĐÀO ANH TUẤN`
+- Final method: fallback real HTML text using loaded local `Cormorant SC`.
+- The broken SVG `textPath` was removed to avoid stacked/overlapping/distorted letters.
+- The name is composed as a tight Canva-like lockup with controlled individual word rotation, using real text:
+  - `ĐÀO`
+  - `ANH`
+  - `TUẤN`
+- No cropped decorative asset was used.
+
+## Final Coordinates And Rotations
+- Artist lockup group:
+  - `left: 715px`
+  - `top: 405px`
+  - `width: 620px`
+  - `height: 230px`
+- `NGHỆ NHÂN`:
+  - local `left: 168px`
+  - local `top: 26px`
+  - artboard x/y: approximately `883px`, `431px`
+  - `font-size: 30px`
+  - `rotate(-2deg)`
+- Artist name container:
+  - local `left: 0`
+  - local `top: 0`
+  - `width: 640px`
+  - `height: 185px`
+- `ĐÀO`:
+  - local `left: 20px`
+  - local `top: 84px`
+  - artboard x/y: approximately `735px`, `489px`
+  - `font-size: 68px`
+  - `rotate(-10deg)`
+- `ANH`:
+  - local `left: 165px`
+  - local `top: 50px`
+  - artboard x/y: approximately `880px`, `455px`
+  - `font-size: 68px`
+  - `rotate(0deg)`
+- `TUẤN`:
+  - local `left: 320px`
+  - local `top: 61px`
+  - artboard x/y: approximately `1035px`, `466px`
+  - `font-size: 68px`
+  - `rotate(8deg)`
+- Small `CUỐI CÙNG`:
+  - local `left: 438px`
+  - local `top: 20px`
+  - artboard x/y: approximately `1153px`, `425px`
+  - `font-size: 24px`
+  - `rotate(26deg)`
+
+## Left Title And Labels
+- Left title now uses loaded `Client Playfair Display`, not a missing `Playfair Display SC`.
+- `của` uses `var(--font-client-aurora)` backed by `VLAURORAAGED.OTF`.
+- Clef:
+  - local `left: -10px`
+  - local `top: 27px`
+  - artboard x/y: approximately `60px`, `69px`
+  - `font-size: 98px`
+  - `color: #f8c684`
+- Artisan labels:
+  - `1968`: `left: 86px`, `top: 440px`, `font-size: 43px`, `rotate(-12deg)`
+  - `THÔN ĐÀO XÁ`: `left: 500px`, `top: 462px`, `font-size: 27.5px`, `rotate(-9deg)`
+  - `ĐỜI THỨ 4`: `left: 515px`, `top: 603px`, `font-size: 25.5px`, `rotate(11deg)`
+
+## QA Notes
+- Debug overlay remains available at `?debugScene08Ref=1`.
+- Verified in source that old `textPath`, `scene08-artist-arc`, `scene08__artist-name-svg`, and `scene08__artist-name-text` are no longer present.
+- `fontTools` was not installed in the environment, so font metadata was audited with `fc-scan`.
+- `find /home/quang/Documents/brief-1 -maxdepth 8 -name package.json -print` returned no package manifest, so `npm run build` and local browser QA could not be run from the current project tree.

@@ -1,0 +1,62 @@
+.page01-story {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #1b0d07;
+}
+
+.page01-story .scene03-timeline,
+.page01-story .scene04-labor {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+}
+
+.page01-story > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.scene01-scene02-bridge {
+  position: relative;
+  z-index: 3;
+  height: 190px;
+  margin-top: -122px;
+  margin-bottom: -68px;
+  overflow: clip;
+  contain: layout paint;
+  pointer-events: none;
+}
+
+.page01-bridge-hands {
+  position: absolute;
+  left: calc(50% - 190px);
+  top: 0;
+  width: 250px;
+  transform: rotate(8deg);
+  transform-origin: center center;
+}
+
+.page01-bridge-hands img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.28));
+}
+
+@media (max-width: 767px) {
+  .scene01-scene02-bridge {
+    height: 132px;
+    margin-top: -58px;
+    margin-bottom: -74px;
+  }
+
+  .page01-bridge-hands {
+    left: 50%;
+    top: 0;
+    width: min(46vw, 220px);
+    transform: translateX(-50%) rotate(8deg);
+  }
+}
