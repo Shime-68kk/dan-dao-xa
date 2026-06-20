@@ -270,9 +270,9 @@ export default function Scene11ModernAudience() {
           nextPinState = "after";
         }
 
-        const nextPart2Progress = clamp((progress - 0.2) / 0.1);
-        const nextPart3Progress = clamp((progress - 0.43) / 0.1);
-        const nextPart4Progress = clamp((progress - 0.66) / 0.12);
+        const nextPart2Progress = clamp((progress - 0.2) / 0.075);
+        const nextPart3Progress = clamp((progress - 0.43) / 0.075);
+        const nextPart4Progress = clamp((progress - 0.66) / 0.09);
         setPinState(nextPinState);
         setSceneProgress(progress);
         setPart2Progress(nextPart2Progress);
@@ -328,8 +328,8 @@ export default function Scene11ModernAudience() {
     "--scene11-motion-scale": 1 + 0.015 * (1 - part4Progress),
   };
 
-  const sharedCopyIn = clamp((sceneProgress - 0.2) / 0.1);
-  const sharedCopyOut = clamp((sceneProgress - 0.66) / 0.12);
+  const sharedCopyIn = clamp((sceneProgress - 0.2) / 0.075);
+  const sharedCopyOut = clamp((sceneProgress - 0.66) / 0.09);
   const sharedPerformanceCopyStyle = {
     opacity: sharedCopyIn * (1 - sharedCopyOut),
     "--scene11-shared-copy-y": `${10 * (1 - sharedCopyIn)}px`,

@@ -245,8 +245,9 @@
   opacity: 0;
   transform: translate3d(0, 18px, 0);
   transition:
-    opacity 780ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .scene12.is-active .scene12-reveal {
@@ -259,19 +260,19 @@
 }
 
 .scene12.is-active .scene12-reveal--copy {
-  transition-delay: 230ms;
+  transition-delay: 180ms;
 }
 
 .scene12.is-active .scene12-reveal--heading {
-  transition-delay: 370ms;
+  transition-delay: 280ms;
 }
 
 .scene12.is-active .scene12-reveal--bottom {
-  transition-delay: 500ms;
+  transition-delay: 380ms;
 }
 
 .scene12.is-active .scene12-reveal--video {
-  transition-delay: 650ms;
+  transition-delay: 500ms;
 }
 
 .scene12-modal {

@@ -54,8 +54,9 @@
   opacity: 0;
   transform: translate3d(0, 18px, 0);
   transition:
-    opacity 700ms ease,
-    transform 700ms ease;
+    opacity 600ms ease,
+    transform 600ms ease;
+  will-change: opacity, transform;
 }
 
 .scene14-copy--first {

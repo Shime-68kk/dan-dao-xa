@@ -52,5 +52,13 @@ export function useAutoplayTimeline(isActive, durationMs = 22000, isPaused = fal
     setHasCompleted(false);
   };
 
-  return { progress, hasCompleted, reset };
+  const seek = (value) => {
+    const nextValue = clamp(value);
+    elapsedRef.current = nextValue * durationMs;
+    lastTimeRef.current = null;
+    setProgress(nextValue);
+    setHasCompleted(nextValue >= 1);
+  };
+
+  return { progress, hasCompleted, reset, seek };
 }

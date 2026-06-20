@@ -71,13 +71,20 @@
   z-index: 20;
   height: 500px;
   overflow: hidden;
-  cursor: pointer;
+  cursor: grab;
   pointer-events: auto;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .scene03-track-window:focus-visible {
   outline: 2px solid rgba(255, 214, 154, 0.76);
   outline-offset: -6px;
+}
+
+.scene03-track-window.is-dragging {
+  cursor: grabbing;
+  touch-action: none;
 }
 
 .scene03-moving-track {

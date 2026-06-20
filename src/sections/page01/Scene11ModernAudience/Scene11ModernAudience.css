@@ -210,7 +210,7 @@
   transform-origin: center bottom;
   transform: scaleY(0);
   filter: drop-shadow(0 7px 12px rgba(0, 0, 0, 0.28));
-  transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scene11-chart__bar:focus-visible {
@@ -220,12 +220,12 @@
 
 .scene11-chart[data-ready="true"] .scene11-chart__bar--2024 {
   transform: scaleY(1);
-  transition-delay: 560ms;
+  transition-delay: 420ms;
 }
 
 .scene11-chart[data-ready="true"] .scene11-chart__bar--2025 {
   transform: scaleY(1);
-  transition-delay: 1380ms;
+  transition-delay: 1040ms;
 }
 
 .scene11-chart__growth-arrow {
@@ -280,23 +280,23 @@
 .scene11-chart[data-ready="true"] .scene11-chart__growth-arrow {
   opacity: 1;
   transform: translate3d(0, 0, 0) rotate(0deg);
-  transition-delay: 1040ms;
+  transition-delay: 780ms;
 }
 
 .scene11-chart[data-ready="true"] .scene11-chart__arrow-body {
   stroke-dashoffset: 0;
-  transition-delay: 1080ms;
+  transition-delay: 810ms;
 }
 
 .scene11-chart[data-ready="true"] .scene11-chart__arrow-highlight {
   stroke-dashoffset: 0;
-  transition-delay: 1180ms;
+  transition-delay: 880ms;
 }
 
 .scene11-chart[data-ready="true"] .scene11-chart__arrow-head {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
-  transition-delay: 1320ms;
+  transition-delay: 990ms;
 }
 
 .scene11-chart__tooltip {
@@ -354,14 +354,15 @@
 .scene11-reveal {
   opacity: 0;
   transform: translate3d(0, 20px, 0);
+  will-change: opacity, transform;
   transition:
-    opacity 780ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 780ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scene11-reveal--bg {
   transform: none;
-  transition-duration: 980ms;
+  transition-duration: 700ms;
 }
 
 .scene11-step.is-visible .scene11-reveal {
@@ -375,23 +376,23 @@
 }
 
 .scene11-step.is-visible .scene11-reveal--intro {
-  transition-delay: 260ms;
+  transition-delay: 190ms;
 }
 
 .scene11-step.is-visible .scene11-reveal--chart {
-  transition-delay: 520ms;
+  transition-delay: 390ms;
 }
 
 .scene11-step.is-visible .scene11-reveal--callout {
-  transition-delay: 1560ms;
+  transition-delay: 1180ms;
 }
 
 .scene11-step.is-visible .scene11-reveal--source {
-  transition-delay: 1560ms;
+  transition-delay: 1180ms;
 }
 
 .scene11-step.is-visible .scene11-reveal--body {
-  transition-delay: 1780ms;
+  transition-delay: 1320ms;
 }
 
 .scene11-part2 {
@@ -606,9 +607,10 @@
 .scene11-step-reveal {
   opacity: 0;
   transform: translate3d(0, 22px, 0);
+  will-change: opacity, transform;
   transition:
-    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scene11-step--part2.is-visible .scene11-step-reveal {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAutoplayTimeline } from "../../../hooks/useAutoplayTimeline.js";
 import { useElementInView } from "../../../hooks/useElementInView.js";
 import { useWidthScale } from "../../../hooks/useWidthScale.js";
@@ -12,6 +12,10 @@ const IN_VIEW_OPTIONS = {
   threshold: 0.35,
   rootMargin: "0px 0px -18% 0px",
 };
+
+function clamp(value, min = 0, max = 1) {
+  return Math.min(max, Math.max(min, value));
+}
 
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
@@ -46,22 +50,83 @@ export default function Scene03Timeline() {
   const stageScale = useWidthScale(1366);
   const prefersReducedMotion = usePrefersReducedMotion();
   const debugScene3 = useDebugScene3();
-  const [isHoverPaused, setIsHoverPaused] = useState(false);
   const [isUserPaused, setIsUserPaused] = useState(false);
-  const isPaused = isHoverPaused || isUserPaused;
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartXRef = useRef(0);
+  const dragStartYRef = useRef(0);
+  const dragStartProgressRef = useRef(0);
+  const hasHorizontalDragRef = useRef(false);
+  const progressRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const isPaused = isUserPaused || isDragging;
   const motion = scene03Motion.desktop;
-  const { progress } = useAutoplayTimeline(
+  const { progress, seek } = useAutoplayTimeline(
     isVisible && !prefersReducedMotion,
     motion.durationMs,
     isPaused
   );
   const progressForRender = prefersReducedMotion ? 0.35 : progress;
+  progressRef.current = progressForRender;
   const getAnchorX = (sourceAnchorX) => (sourceAnchorX / STAFF_SOURCE_WIDTH) * motion.trackWidth;
   const firstAnchor = getAnchorX(timelineMilestones[0].sourceAnchorX);
   const lastAnchor = getAnchorX(timelineMilestones[timelineMilestones.length - 1].sourceAnchorX);
   const trackStartX = 1366 * 0.76 - firstAnchor;
   const trackEndX = 1366 * 0.42 - lastAnchor;
   const trackX = trackStartX + (trackEndX - trackStartX) * progressForRender;
+  const progressFromPointerDelta = (deltaX) => {
+    const scaledDeltaX = deltaX / Math.max(stageScale, 0.001);
+    const trackRange = trackEndX - trackStartX;
+    return clamp(dragStartProgressRef.current + scaledDeltaX / trackRange);
+  };
+
+  const handlePointerDown = (event) => {
+    if (prefersReducedMotion) return;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    dragStartXRef.current = event.clientX;
+    dragStartYRef.current = event.clientY;
+    dragStartProgressRef.current = progressRef.current;
+    hasHorizontalDragRef.current = false;
+    isDraggingRef.current = true;
+    setIsDragging(true);
+  };
+
+  const handlePointerMove = (event) => {
+    if (!isDraggingRef.current || prefersReducedMotion) return;
+
+    const deltaX = event.clientX - dragStartXRef.current;
+    const deltaY = event.clientY - dragStartYRef.current;
+
+    if (!hasHorizontalDragRef.current && Math.abs(deltaX) > 7 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      hasHorizontalDragRef.current = true;
+    }
+
+    if (hasHorizontalDragRef.current) {
+      event.preventDefault();
+      seek(progressFromPointerDelta(deltaX));
+    }
+  };
+
+  const endDrag = (event) => {
+    if (!isDraggingRef.current) return;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    isDraggingRef.current = false;
+    hasHorizontalDragRef.current = false;
+    setIsDragging(false);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setIsUserPaused((value) => !value);
+      return;
+    }
+
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      seek(clamp(progressRef.current + direction * 0.035));
+    }
+  };
 
   return (
     <section
@@ -85,28 +150,22 @@ export default function Scene03Timeline() {
         </h2>
 
         <div
-          className={`scene03-track-window ${isPaused ? "is-paused" : ""}`}
+          className={`scene03-track-window ${isPaused ? "is-paused" : ""} ${
+            isDragging ? "is-dragging" : ""
+          }`}
           role="button"
           tabIndex={0}
           aria-pressed={isPaused}
-          aria-label={isPaused ? "Timeline paused. Press to resume." : "Timeline playing. Press to pause."}
-          onPointerEnter={(event) => {
-            if (event.pointerType === "mouse") setIsHoverPaused(true);
-          }}
-          onPointerLeave={(event) => {
-            if (event.pointerType === "mouse") setIsHoverPaused(false);
-          }}
-          onClick={() => setIsUserPaused((value) => !value)}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              setIsUserPaused((value) => !value);
-            }
-          }}
-          onTouchStart={(event) => {
-            event.preventDefault();
-            setIsUserPaused((value) => !value);
-          }}
+          aria-label={
+            isPaused
+              ? "Timeline paused. Drag to scrub, or press Enter to resume."
+              : "Timeline playing. Hold and drag to scrub."
+          }
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onKeyDown={handleKeyDown}
         >
           <div className="scene03-moving-track">
             <img className="scene03-staff-img" src={musicStaffStrip} alt="" aria-hidden="true" loading="lazy" />
@@ -144,7 +203,11 @@ export default function Scene03Timeline() {
         </div>
 
         <span className="scene03-pause-hint">
-          {isPaused ? "Đang tạm dừng - chạm để chạy tiếp" : "Chạm vào dòng nhạc để tạm dừng"}
+          {isDragging
+            ? "Kéo để xem các mốc thời gian"
+            : isPaused
+              ? "Đang tạm dừng - nhấn Enter để chạy tiếp"
+              : "Giữ và kéo dòng nhạc để tua timeline"}
         </span>
 
       </div>

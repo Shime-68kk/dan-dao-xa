@@ -6,7 +6,7 @@ import "./Scene13FutureQuestion.css";
 
 const SCENE13_WIDTH = 1366;
 const SCENE13_HEIGHT = 768;
-const SCENE13_VIDEO_URL = "/scene13/dao-xa-slide13.mp4";
+const SCENE13_VIDEO_URL = `${import.meta.env.BASE_URL}scene13/dao-xa-slide13.mp4`;
 
 const introCopy =
   "Sự trở lại của âm nhạc truyền thống trong đời sống đương đại đang mở ra những tín hiệu tích cực cho các làng nghề chế tác nhạc cụ dân tộc. Tuy nhiên, để những cơ hội ấy thực sự chuyển hóa thành động lực phát triển, việc bảo tồn làng nghề cần được nhìn nhận như một quá trình vừa gìn giữ vừa thích ứng với nhu cầu của xã hội hiện đại.";
@@ -25,13 +25,13 @@ function pauseOtherMedia(exceptNode) {
   });
 }
 
-function canPlayHevc() {
+function canPlayMp4() {
   if (typeof document === "undefined") return true;
   const video = document.createElement("video");
   return Boolean(
-    video.canPlayType('video/mp4; codecs="hvc1"') ||
-      video.canPlayType('video/mp4; codecs="hev1"') ||
-      video.canPlayType('video/mp4; codecs="hvc1.1.6.L120.B0, mp4a.40.2"')
+    video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') ||
+      video.canPlayType('video/mp4; codecs="avc1.4D401E, mp4a.40.2"') ||
+      video.canPlayType("video/mp4")
   );
 }
 
@@ -80,7 +80,7 @@ export default function Scene13FutureQuestion() {
   }, []);
 
   useEffect(() => {
-    setIsUnsupported(!canPlayHevc());
+    setIsUnsupported(!canPlayMp4());
   }, []);
 
   useEffect(() => {
@@ -246,7 +246,6 @@ export default function Scene13FutureQuestion() {
               <video
                 ref={videoRef}
                 className="scene13-modal__video"
-                src={isNearViewport ? SCENE13_VIDEO_URL : undefined}
                 poster={scene13Poster}
                 preload="metadata"
                 controls
@@ -254,7 +253,9 @@ export default function Scene13FutureQuestion() {
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
                 onEnded={() => setIsPlaying(false)}
-              />
+              >
+                {isNearViewport ? <source src={SCENE13_VIDEO_URL} type="video/mp4" /> : null}
+              </video>
             )}
           </div>
         </div>

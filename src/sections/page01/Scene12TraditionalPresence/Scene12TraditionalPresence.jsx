@@ -6,7 +6,7 @@ import "./Scene12TraditionalPresence.css";
 
 const SCENE12_WIDTH = 1366;
 const SCENE12_HEIGHT = 869;
-const SCENE12_VIDEO_URL = "/scene12/dao-xa-slide12.mp4";
+const SCENE12_VIDEO_URL = `${import.meta.env.BASE_URL}scene12/dao-xa-slide12.mp4`;
 
 function pauseOtherMedia(exceptNode) {
   document.querySelectorAll("audio, video").forEach((media) => {
@@ -14,13 +14,13 @@ function pauseOtherMedia(exceptNode) {
   });
 }
 
-function canPlayHevc() {
+function canPlayMp4() {
   if (typeof document === "undefined") return true;
   const video = document.createElement("video");
   return Boolean(
-    video.canPlayType('video/mp4; codecs="hvc1"') ||
-      video.canPlayType('video/mp4; codecs="hev1"') ||
-      video.canPlayType('video/mp4; codecs="hvc1.1.6.L120.B0, mp4a.40.2"')
+    video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') ||
+      video.canPlayType('video/mp4; codecs="avc1.4D401E, mp4a.40.2"') ||
+      video.canPlayType("video/mp4")
   );
 }
 
@@ -69,7 +69,7 @@ export default function Scene12TraditionalPresence() {
   }, []);
 
   useEffect(() => {
-    setIsUnsupported(!canPlayHevc());
+    setIsUnsupported(!canPlayMp4());
   }, []);
 
   useEffect(() => {
@@ -238,7 +238,6 @@ export default function Scene12TraditionalPresence() {
               <video
                 ref={videoRef}
                 className="scene12-modal__video"
-                src={isNearViewport ? SCENE12_VIDEO_URL : undefined}
                 poster={scene12Poster}
                 preload="metadata"
                 controls
@@ -246,7 +245,9 @@ export default function Scene12TraditionalPresence() {
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
                 onEnded={() => setIsPlaying(false)}
-              />
+              >
+                {isNearViewport ? <source src={SCENE12_VIDEO_URL} type="video/mp4" /> : null}
+              </video>
             )}
           </div>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useElementInView } from "../../../hooks/useElementInView.js";
 import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import scene02Background from "../../../assets/page01/scene02/scene02-main-background.webp";
-import daoXaMap from "../../../assets/page01/scene02/dao-xa-map.webp";
+import daoXaMap from "../../../assets/page01/scene02/slide2-map-frame.png";
 import flowerOrnament from "../../../assets/page01/scene02/flower-ornament-trimmed.png";
 import slide2Reference from "../../../assets/page01/scene02/scene02-layout-reference.webp";
 import "./Scene02History.css";
@@ -81,7 +81,12 @@ export default function Scene02History() {
             rel="noreferrer"
             aria-label="Mở vị trí xưởng sản xuất đàn Đào Xá trên Google Maps"
           >
-            <img src={daoXaMap} alt="Bản đồ vị trí xưởng sản xuất đàn Đào Xá" loading="lazy" />
+            <img
+              className="scene02-history__map-image"
+              src={daoXaMap}
+              alt="Bản đồ vị trí xưởng sản xuất đàn Đào Xá"
+              loading="lazy"
+            />
           </a>
 
           <p className="scene02-history__caption scene02-reveal">

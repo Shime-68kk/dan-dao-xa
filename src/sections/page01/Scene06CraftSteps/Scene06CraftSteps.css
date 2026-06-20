@@ -1,64 +1,51 @@
 .scene06-steps {
   position: relative;
   width: 100%;
-  height: 460vh;
+  min-height: 100vh;
+  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
   margin: 0;
+  overflow: hidden;
   overflow-x: clip;
   isolation: isolate;
-  background-color: #2a130a;
-  background-image: url("../../../assets/page01/common/main-wood-background.png");
-  background-position: center top;
-  background-repeat: repeat-y;
-  background-size: cover;
+  background: transparent;
 }
 
 .scene06-steps__sticky {
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
-}
-
-.scene06-steps__sticky.is-pinned {
-  position: fixed;
-  top: 0;
-  bottom: auto;
   z-index: 20;
-}
-
-.scene06-steps__sticky.is-after {
-  top: auto;
-  bottom: 0;
+  background: url("../../../assets/page01/scene06/steps/backgrounds/process-bg.png") center / cover no-repeat;
 }
 
 .scene06-steps__viewport {
   position: relative;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
+  background: url("../../../assets/page01/scene06/steps/backgrounds/process-bg.png") center / cover no-repeat;
 }
 
 .scene06-steps__stage {
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
   width: calc(1366px * var(--scene06-steps-scale, 1));
-  height: calc(768px * var(--scene06-steps-scale, 1));
+  height: 100vh;
+  height: 100svh;
   transform: none;
   transform-origin: top left;
   overflow: hidden;
   --step-card-width: 150px;
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(53, 23, 12, 0.04) 0%,
-      rgba(53, 23, 12, 0.04) 70%,
-      rgba(221, 218, 194, 0.88) 70%,
-      rgba(221, 218, 194, 0.88) 100%
-    ),
-    url("../../../assets/page01/common/main-wood-background.png") center / cover;
+  --step-card-height: 486px;
+  background: url("../../../assets/page01/scene06/steps/backgrounds/process-bg.png") center / 100% 100% no-repeat;
 }
 
 .scene06-steps__title {
@@ -81,11 +68,6 @@
     0 1px 0 rgba(255, 239, 205, 0.26),
     0 4px 10px rgba(0, 0, 0, 0.22),
     0 12px 22px rgba(0, 0, 0, 0.28);
-}
-
-.scene06-steps__title--group-3 {
-  left: calc(86px * var(--scene06-steps-scale, 1));
-  top: calc(190px * var(--scene06-steps-scale, 1));
 }
 
 .scene06-steps__title-line {
@@ -125,8 +107,9 @@
   right: 0;
   top: calc(538px * var(--scene06-steps-scale, 1));
   height: calc(230px * var(--scene06-steps-scale, 1));
-  background: rgba(222, 220, 197, 0.9);
+  background: transparent;
   z-index: 1;
+  pointer-events: none;
 }
 
 .scene06-steps__group {
@@ -134,38 +117,18 @@
   inset: 0;
   z-index: 4;
   opacity: 0;
-  filter: blur(3px);
-  transform: translate3d(14%, 0, 0);
   pointer-events: none;
   transition:
-    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scene06-steps__group.is-active {
   opacity: 1;
-  filter: blur(0);
-  transform: translate3d(0, 0, 0);
   pointer-events: auto;
 }
 
 .scene06-steps__group.is-past {
   opacity: 0;
-  filter: blur(3px);
-  transform: translate3d(-14%, 0, 0);
-}
-
-.scene06-steps__group--2::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: url("../../../assets/page01/scene06/steps/backgrounds/group2-bg.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  pointer-events: none;
 }
 
 .scene06-steps__group--2 .scene06-steps__item,
@@ -175,18 +138,6 @@
 
 .scene06-steps__group--2 .scene06-steps__note {
   z-index: 4;
-}
-
-.scene06-steps__group--4::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: url("../../../assets/page01/scene06/steps/backgrounds/group4-bg.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  pointer-events: none;
 }
 
 .scene06-steps__group--4 .scene06-steps__item,
@@ -231,13 +182,59 @@
   left: calc(var(--x) * var(--scene06-steps-scale, 1));
   top: calc(var(--y) * var(--scene06-steps-scale, 1));
   width: calc(var(--step-card-width) * var(--scene06-steps-scale, 1));
+  opacity: 0;
+  transform: translate3d(0, calc(70px * var(--scene06-steps-scale, 1)), 0);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scene06-steps__group.is-active .scene06-steps__item {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.scene06-steps__group.is-active .scene06-steps__item:nth-of-type(2) {
+  transition-delay: 90ms;
+}
+
+.scene06-steps__group.is-active .scene06-steps__item:nth-of-type(3) {
+  transition-delay: 180ms;
+}
+
+.scene06-steps__group.is-past .scene06-steps__item {
+  transform: translate3d(0, calc(-70px * var(--scene06-steps-scale, 1)), 0);
+}
+
+.scene06-steps__card--b1,
+.scene06-steps__card--b2,
+.scene06-steps__card--b3,
+.scene06-steps__card--b4,
+.scene06-steps__card--b5,
+.scene06-steps__card--b6,
+.scene06-steps__card--b7,
+.scene06-steps__card--b8 {
+  height: calc(var(--step-card-height) * var(--scene06-steps-scale, 1));
+  overflow: hidden;
 }
 
 .scene06-steps__item img {
+  display: block;
   width: 100%;
   max-width: none;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform-origin: top center;
   filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.34));
+}
+
+.scene06-steps__card--b4 img {
+  transform: scale(1.12);
+}
+
+.scene06-steps__card--b5 img {
+  transform: scale(1.06);
 }
 
 .scene06-steps__note {
@@ -262,6 +259,25 @@
     0 6px 16px rgba(0, 0, 0, 0.45);
 }
 
+.scene06-steps__note--process {
+  min-height: calc(var(--note-height, 250px) * var(--scene06-steps-scale, 1));
+  max-height: calc(320px * var(--scene06-steps-scale, 1));
+  font-size: calc(10.2px * var(--scene06-steps-scale, 1));
+  line-height: 1.42;
+}
+
+.scene06-steps__note--process-main {
+  min-height: 0;
+  max-height: none;
+  height: auto;
+  padding:
+    0
+    calc(5px * var(--scene06-steps-scale, 1))
+    calc(14px * var(--scene06-steps-scale, 1));
+  font-size: calc(10.4px * var(--scene06-steps-scale, 1));
+  line-height: 1.34;
+}
+
 .scene06-steps__note h3 {
   margin: 0 0 calc(8px * var(--scene06-steps-scale, 1));
   font-size: calc(12px * var(--scene06-steps-scale, 1));
@@ -284,6 +300,15 @@
   padding:
     calc(12px * var(--scene06-steps-scale, 1))
     calc(9px * var(--scene06-steps-scale, 1));
+  line-height: 1.42;
+}
+
+.scene06-steps__note--group-1.scene06-steps__note--process-main,
+.scene06-steps__note--group-2.scene06-steps__note--process-main {
+  padding:
+    0
+    calc(5px * var(--scene06-steps-scale, 1))
+    calc(14px * var(--scene06-steps-scale, 1));
   line-height: 1.34;
 }
 
@@ -306,15 +331,24 @@
   line-height: 1.16;
 }
 
+.scene06-steps__note--process-main h3 {
+  margin-bottom: calc(6px * var(--scene06-steps-scale, 1));
+  font-size: calc(11px * var(--scene06-steps-scale, 1));
+  line-height: 1.25;
+}
+
 .scene06-steps__note--group-1 p,
 .scene06-steps__note--group-2 p,
 .scene06-steps__note--group-4 p {
-  margin-bottom: calc(9px * var(--scene06-steps-scale, 1));
+  margin-bottom: calc(7px * var(--scene06-steps-scale, 1));
+}
+
+.scene06-steps__note--process-main p {
+  margin-bottom: calc(6px * var(--scene06-steps-scale, 1));
 }
 
 .scene06-steps__note--step-5,
 .scene06-steps__note--step-6 {
-  min-height: auto;
   height: auto;
   overflow: visible;
 }
@@ -346,6 +380,16 @@
   bottom: calc(-18px * var(--scene06-steps-scale, 1));
   border-right: calc(3px * var(--scene06-steps-scale, 1)) solid rgba(255, 255, 255, 0.9);
   border-bottom: calc(3px * var(--scene06-steps-scale, 1)) solid rgba(255, 255, 255, 0.9);
+}
+
+.scene06-steps__note--process-main .scene06-steps__corner--tl {
+  left: calc(-10px * var(--scene06-steps-scale, 1));
+  top: calc(-10px * var(--scene06-steps-scale, 1));
+}
+
+.scene06-steps__note--process-main .scene06-steps__corner--br {
+  right: calc(-10px * var(--scene06-steps-scale, 1));
+  bottom: 0;
 }
 
 .scene06-steps__card--b1 {
@@ -581,12 +625,16 @@
 
 @media (max-width: 768px) {
   .scene06-steps {
-    height: 460vh;
+    min-height: 100vh;
+    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
   }
 
   .scene06-steps__sticky,
   .scene06-steps__viewport {
     height: 100vh;
+    height: 100svh;
   }
 
 }

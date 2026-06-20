@@ -42,6 +42,7 @@ export default function Scene04LaborDecline() {
         <div className="scene04-stage">
           <img className="scene04-base-bg" src={baseWoodBackground} alt="" aria-hidden="true" loading="lazy" />
           <img className="scene04-overlay-bg" src={decorativeOverlay} alt="" aria-hidden="true" loading="lazy" />
+          <div className="scene04-chart-glare-fix" aria-hidden="true" />
 
           <div className="scene04-chart-panel scene04-reveal scene04-reveal--chart">
             <LaborDeclineChart isVisible={isVisible} />

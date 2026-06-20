@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useScrollProgress } from "../../../hooks/useScrollProgress.js";
+import { useEffect, useRef, useState } from "react";
 import b1 from "../../../assets/page01/scene06/steps/cards/b1-card.png";
 import b2 from "../../../assets/page01/scene06/steps/cards/b2-card.png";
 import b3 from "../../../assets/page01/scene06/steps/cards/b3-card.png";
-import b4 from "../../../assets/page01/scene06/steps/cards/b4-card.png";
-import b5 from "../../../assets/page01/scene06/steps/cards/b5-card.png";
-import b6 from "../../../assets/page01/scene06/steps/cards/b6-card.png";
+import b4 from "../../../../slide 6-2/slide 6-2-2/bước 4.png";
+import b5 from "../../../../slide 6-2/slide 6-2-2/bước 5.png";
+import b6 from "../../../../slide 6-2/slide 6-2-2/bước 6.png";
 import b7 from "../../../assets/page01/scene06/steps/cards/b7-card.png";
 import b8 from "../../../assets/page01/scene06/steps/cards/b8-card.png";
 import b9 from "../../../assets/page01/scene06/steps/cards/b9-card.png";
@@ -14,8 +13,49 @@ import flowerOrnament from "../../../assets/page01/scene06/steps/ornaments/flowe
 import "./Scene06CraftSteps.css";
 
 const BASE_WIDTH = 1366;
+const GROUP_COUNT = 4;
+const SWITCH_LOCK_MS = 620;
+const WHEEL_THRESHOLD = 8;
+const SWIPE_THRESHOLD = 48;
 const defaultTitleLines = ["CÁC", "BƯỚC", "LÀM", "ĐÀN"];
-const group3TitleLines = ["GỖ", "THÔ"];
+const CARD_COLUMNS_MAIN = [
+  { x: 245 },
+  { x: 620 },
+  { x: 995 },
+];
+const CARD_COLUMNS_FINAL = [
+  { x: 360 },
+  { x: 875 },
+];
+const NOTE_SLOTS_MAIN = [
+  { x: 420, y: 88, width: 132 },
+  { x: 795, y: 88, width: 132 },
+  { x: 1170, y: 88, width: 132 },
+];
+const NOTE_SLOTS_FINAL = [
+  { x: 570, y: 88, width: 145 },
+  { x: 1085, y: 88, width: 145 },
+];
+const PROCESS_STEP_SLOT_BY_ID = {
+  b1: 0,
+  b2: 1,
+  b3: 2,
+  b4: 0,
+  b5: 1,
+  b6: 2,
+  b7: 0,
+  b8: 1,
+};
+const PROCESS_CARD_Y_BY_ID = {
+  b1: 300,
+  b2: 306,
+  b3: 300,
+  b4: 306,
+  b5: 306,
+  b6: 306,
+  b7: 300,
+  b8: 300,
+};
 
 const stepGroups = [
   {
@@ -208,14 +248,28 @@ const stepGroups = [
 function SceneStep({ step }) {
   const copyBlocks = Array.isArray(step.copy) ? step.copy : [step.copy];
   const showNoteCorners = step.noteVariant !== "group-4";
+  const processSlot = PROCESS_STEP_SLOT_BY_ID[step.id];
+  const isProcessStep = Number.isInteger(processSlot);
+  const isMainProcessStep = ["b1", "b2", "b3", "b4", "b5", "b6"].includes(step.id);
+  const isNaturalProcessStep = ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"].includes(step.id);
+  const columnSlots = isMainProcessStep ? CARD_COLUMNS_MAIN : CARD_COLUMNS_FINAL;
+  const noteSlots = isMainProcessStep ? NOTE_SLOTS_MAIN : NOTE_SLOTS_FINAL;
+  const columnSlot = isProcessStep ? columnSlots[processSlot] : null;
+  const noteSlot = isProcessStep ? noteSlots[processSlot] : null;
+  const x = columnSlot?.x ?? step.x;
+  const y = PROCESS_CARD_Y_BY_ID[step.id] ?? step.y;
+  const noteX = noteSlot?.x ?? step.noteX;
+  const noteY = noteSlot?.y ?? step.noteY;
+  const noteWidth = noteSlot?.width ?? step.noteWidth ?? 250;
+  const noteHeight = noteSlot?.height ?? step.noteHeight ?? 250;
 
   return (
     <>
       <article
         className={`scene06-steps__item ${step.className}`}
         style={{
-          "--x": `${step.x}px`,
-          "--y": `${step.y}px`,
+          "--x": `${x}px`,
+          "--y": `${y}px`,
         }}
       >
         <img src={step.image} alt={step.title} loading="lazy" decoding="async" />
@@ -224,11 +278,14 @@ function SceneStep({ step }) {
       <aside
         className={`scene06-steps__note${
           step.noteVariant ? ` scene06-steps__note--${step.noteVariant}` : ""
+        }${isProcessStep ? " scene06-steps__note--process" : ""}${
+          isNaturalProcessStep ? " scene06-steps__note--process-main" : ""
         } scene06-steps__note--step-${step.id.replace("b", "")}`}
         style={{
-          "--note-x": `${step.noteX}px`,
-          "--note-y": `${step.noteY}px`,
-          "--note-width": `${step.noteWidth ?? 250}px`,
+          "--note-x": `${noteX}px`,
+          "--note-y": `${noteY}px`,
+          "--note-width": `${noteWidth}px`,
+          "--note-height": `${noteHeight}px`,
         }}
       >
         {showNoteCorners ? (
@@ -311,8 +368,12 @@ function Group4FinalQuote({ isActive }) {
 
 export default function Scene06CraftSteps() {
   const sectionRef = useRef(null);
-  const progress = useScrollProgress(sectionRef);
-  const [pinState, setPinState] = useState("before");
+  const activeIndexRef = useRef(0);
+  const switchLockRef = useRef(false);
+  const lockTimerRef = useRef(0);
+  const touchStartYRef = useRef(null);
+  const latestTouchYRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [frameWidth, setFrameWidth] = useState(() =>
     typeof window === "undefined" ? BASE_WIDTH : window.innerWidth
   );
@@ -339,47 +400,137 @@ export default function Scene06CraftSteps() {
   }, []);
 
   useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
     const node = sectionRef.current;
     if (!node) return undefined;
 
-    let frame = 0;
-    const updatePinState = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        const rect = node.getBoundingClientRect();
-        if (rect.top > 0) {
-          setPinState("before");
-        } else if (rect.bottom <= window.innerHeight) {
-          setPinState("after");
-        } else {
-          setPinState("pinned");
-        }
+    const isSceneActive = () => {
+      const rect = node.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      return rect.top <= viewportHeight * 0.35 && rect.bottom >= viewportHeight * 0.65;
+    };
+
+    const pinSceneIntoView = () => {
+      node.scrollIntoView({
+        block: "start",
+        behavior: "auto",
       });
     };
 
-    updatePinState();
-    window.addEventListener("scroll", updatePinState, { passive: true });
-    window.addEventListener("resize", updatePinState);
-    window.addEventListener("orientationchange", updatePinState);
+    const switchGroup = (nextIndex) => {
+      switchLockRef.current = true;
+      activeIndexRef.current = nextIndex;
+      window.clearTimeout(lockTimerRef.current);
+      pinSceneIntoView();
+      setActiveIndex(nextIndex);
+      lockTimerRef.current = window.setTimeout(() => {
+        switchLockRef.current = false;
+      }, SWITCH_LOCK_MS);
+    };
+
+    const handleWheel = (event) => {
+      if (!isSceneActive()) {
+        return;
+      }
+
+      if (switchLockRef.current) {
+        event.preventDefault();
+        return;
+      }
+
+      if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) {
+        return;
+      }
+
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const currentIndex = activeIndexRef.current;
+      const nextIndex = currentIndex + direction;
+
+      if (nextIndex < 0 || nextIndex >= GROUP_COUNT) {
+        return;
+      }
+
+      event.preventDefault();
+      switchGroup(nextIndex);
+    };
+
+    const handleTouchStart = (event) => {
+      if (!isSceneActive()) return;
+      const startY = event.touches[0]?.clientY ?? null;
+      touchStartYRef.current = startY;
+      latestTouchYRef.current = startY;
+    };
+
+    const handleTouchMove = (event) => {
+      if (!isSceneActive() || touchStartYRef.current === null) return;
+      latestTouchYRef.current = event.touches[0]?.clientY ?? latestTouchYRef.current;
+
+      const deltaY = touchStartYRef.current - latestTouchYRef.current;
+      if (Math.abs(deltaY) < 6) return;
+
+      const direction = deltaY > 0 ? 1 : -1;
+      const currentIndex = activeIndexRef.current;
+      const canSwitch =
+        (direction > 0 && currentIndex < GROUP_COUNT - 1) ||
+        (direction < 0 && currentIndex > 0);
+
+      if (switchLockRef.current || canSwitch) {
+        event.preventDefault();
+      }
+    };
+
+    const handleTouchEnd = (event) => {
+      if (!isSceneActive() || touchStartYRef.current === null) {
+        touchStartYRef.current = null;
+        latestTouchYRef.current = null;
+        return;
+      }
+
+      if (switchLockRef.current) {
+        event.preventDefault();
+        touchStartYRef.current = null;
+        latestTouchYRef.current = null;
+        return;
+      }
+
+      const endY = event.changedTouches[0]?.clientY ?? latestTouchYRef.current ?? touchStartYRef.current;
+      const deltaY = touchStartYRef.current - endY;
+      touchStartYRef.current = null;
+      latestTouchYRef.current = null;
+
+      if (Math.abs(deltaY) < SWIPE_THRESHOLD) return;
+
+      const direction = deltaY > 0 ? 1 : -1;
+      const currentIndex = activeIndexRef.current;
+      const nextIndex = currentIndex + direction;
+
+      if (nextIndex < 0 || nextIndex >= GROUP_COUNT) {
+        return;
+      }
+
+      event.preventDefault();
+      switchGroup(nextIndex);
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
 
     return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", updatePinState);
-      window.removeEventListener("resize", updatePinState);
-      window.removeEventListener("orientationchange", updatePinState);
+      window.clearTimeout(lockTimerRef.current);
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
     };
   }, []);
 
-  const activeIndex = useMemo(() => {
-    if (progress < 0.25) return 0;
-    if (progress < 0.5) return 1;
-    if (progress < 0.75) return 2;
-    return 3;
-  }, [progress]);
   const scale = frameWidth / BASE_WIDTH;
-  const isGroup3Active = activeIndex === 2;
   const isGroup4Active = activeIndex === 3;
-  const titleLines = isGroup3Active ? group3TitleLines : defaultTitleLines;
 
   return (
     <section
@@ -388,14 +539,13 @@ export default function Scene06CraftSteps() {
       aria-label="Các bước làm đàn"
       style={{ "--scene06-steps-scale": scale }}
     >
-      <div className={`scene06-steps__sticky is-${pinState}`}>
+      <div className="scene06-steps__sticky">
         <div className="scene06-steps__viewport">
           <div className="scene06-steps__stage">
             {!isGroup4Active ? (
               <VerticalSceneTitle
-                lines={titleLines}
-                ariaLabel={isGroup3Active ? "Gỗ thô" : "Các bước làm đàn"}
-                variant={isGroup3Active ? "group-3" : undefined}
+                lines={defaultTitleLines}
+                ariaLabel="Các bước làm đàn"
               />
             ) : null}
 
