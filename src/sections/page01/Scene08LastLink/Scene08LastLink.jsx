@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import villageSign from "../../../assets/page01/scene08/scene08-village-sign.png";
+import villageSign from "../../../assets/page01/scene08/village-sign-corrected.png";
 import artisanStaff from "../../../assets/page01/scene08/scene08-artisan-staff.png";
-import artistLockup from "../../../assets/page01/scene08/scene08-artist-lockup-exact.png";
+import artistLockup from "../../../assets/page01/scene08/artist-dao-anh-tuan-title.png";
 import soanPortraitCard from "../../../../slide 8/ảnh 3.png";
 import referenceTop from "../../../assets/page01/scene08/scene08-ref-1.png";
 import referenceContinuation from "../../../assets/page01/scene08/scene08-ref-2.png";

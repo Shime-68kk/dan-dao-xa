@@ -101,6 +101,7 @@ export default function Scene07WoodResonance() {
               loading="lazy"
               decoding="async"
             />
+            <span className="scene07__clock-art-cover" aria-hidden="true" />
             <h2 className="scene07__column-title scene07__column-title--two scene07-reveal scene07-reveal--c2-title">
               THỜI GIAN HOÀN THIỆN
             </h2>
@@ -108,13 +109,21 @@ export default function Scene07WoodResonance() {
               Một cây đàn thường mất
             </p>
             <p className="scene07__number scene07__number--two-a scene07-reveal scene07-reveal--c2-num1">
-              2–3 ngày
+              <span className="scene07__duration-text">2–3 ngày</span>
+              <span
+                className="scene07__duration-underline scene07__duration-underline--two-a"
+                aria-hidden="true"
+              />
             </p>
             <p className="scene07__label scene07__label--two-a scene07-reveal scene07-reveal--c2-label1">
               Sản phẩm đơn giản
             </p>
             <p className="scene07__number scene07__number--two-b scene07-reveal scene07-reveal--c2-num2">
-              1–2 tuần
+              <span className="scene07__duration-text">1–2 tuần</span>
+              <span
+                className="scene07__duration-underline scene07__duration-underline--two-b"
+                aria-hidden="true"
+              />
             </p>
             <p className="scene07__label scene07__label--two-b scene07-reveal scene07-reveal--c2-label2">
               Sản phẩm yêu cầu
@@ -140,7 +149,7 @@ export default function Scene07WoodResonance() {
               Riêng công đoạn chỉnh âm có thể mất
             </p>
             <p className="scene07__number scene07__number--three scene07-reveal scene07-reveal--c3-num">
-              1–2 ngày
+              <span className="scene07__time-label">1–2 ngày</span>
             </p>
             <p className="scene07__small scene07__small--three-b scene07-reveal scene07-reveal--c3-text2">
               người thợ kiểm tra, lắng nghe và điều chỉnh cho đến khi đạt yêu cầu.

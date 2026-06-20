@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Info, ListMusic, Pause, Play, SkipBack, SkipForward, Volume2, VolumeX, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import playlistFrame from "../../../assets/page01/scene10/instruments/playlist-frame.png";
 import { SCENE10_INSTRUMENTS, SCENE10_VISIBLE_INSTRUMENTS } from "./scene10Instruments.js";
 import "./Scene10InstrumentPlayer.css";
@@ -44,6 +45,7 @@ export default function Scene10InstrumentPlayer() {
   const [muted, setMuted] = useState(false);
   const [showVolume, setShowVolume] = useState(false);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [isDetailZoomOpen, setIsDetailZoomOpen] = useState(false);
 
   const selectedInstrument = SCENE10_VISIBLE_INSTRUMENTS[selectedIndex];
   const previousInstrument =
@@ -153,13 +155,34 @@ export default function Scene10InstrumentPlayer() {
         goNext();
       }
       if (event.key === "Escape") {
+        if (isDetailZoomOpen) {
+          setIsDetailZoomOpen(false);
+          return;
+        }
         setIsInfoOpen(false);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [goNext, goPrevious, isInView]);
+  }, [goNext, goPrevious, isInView, isDetailZoomOpen]);
+
+  useEffect(() => {
+    if (!isDetailZoomOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setIsDetailZoomOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isDetailZoomOpen]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -262,7 +285,10 @@ export default function Scene10InstrumentPlayer() {
         <button
           className="scene10-player__arrow scene10-player__arrow--left"
           type="button"
-          onClick={goPrevious}
+          onClick={(event) => {
+            event.stopPropagation();
+            goPrevious();
+          }}
           aria-label="Chọn nhạc cụ trước"
         >
           <ChevronLeft size={34} strokeWidth={1.9} />
@@ -300,7 +326,10 @@ export default function Scene10InstrumentPlayer() {
         <button
           className="scene10-player__arrow scene10-player__arrow--right"
           type="button"
-          onClick={goNext}
+          onClick={(event) => {
+            event.stopPropagation();
+            goNext();
+          }}
           aria-label="Chọn nhạc cụ tiếp theo"
         >
           <ChevronRight size={34} strokeWidth={1.9} />
@@ -328,17 +357,101 @@ export default function Scene10InstrumentPlayer() {
           </div>
         </div>
 
-        <div className="scene10-player__detail">
-          <img
-            src={selectedInstrument.detailImage}
-            alt={`Thông tin ${selectedInstrument.name}`}
-            width={selectedInstrument.detailWidth}
-            height={selectedInstrument.detailHeight}
-            loading="eager"
-            decoding="async"
-          />
-        </div>
+        <button
+          className="scene10-player__detail"
+          type="button"
+          onClick={() => setIsDetailZoomOpen(true)}
+          aria-label={`Phóng to thông tin ${selectedInstrument.name}`}
+        >
+          <span className="scene10-player__detail-media" aria-hidden="true">
+            <img
+              className={`scene10-player__detail-image scene10-player__detail-image--${selectedInstrument.slug}`}
+              src={selectedInstrument.cardImage}
+              alt=""
+              loading="eager"
+              decoding="async"
+              draggable="false"
+            />
+          </span>
+          <span className="scene10-player__detail-content">
+            <span className="scene10-player__detail-kicker">Thông tin nhạc cụ</span>
+            <strong className="scene10-player__detail-title">{selectedInstrument.name}</strong>
+            <span className="scene10-player__detail-description">{selectedInstrument.description}</span>
+            <span className="scene10-player__detail-chips" aria-label="Đặc điểm nhạc cụ">
+              {selectedInstrument.categories.map((category) => (
+                <span key={category} className="scene10-player__detail-chip">
+                  {category}
+                </span>
+              ))}
+            </span>
+            <span className="scene10-player__detail-difficulty">
+              <span className="scene10-player__detail-stars" aria-hidden="true">
+                {Array.from({ length: 5 }, (_, starIndex) => (
+                  <span
+                    key={starIndex}
+                    className={starIndex < selectedInstrument.difficultyStars ? "is-filled" : ""}
+                  >
+                    ★
+                  </span>
+                ))}
+              </span>
+              <span>{selectedInstrument.difficultyText}</span>
+            </span>
+          </span>
+        </button>
       </div>
+
+      {isDetailZoomOpen && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              className="scene10-player__detail-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Thông tin phóng to ${selectedInstrument.name}`}
+              onClick={() => setIsDetailZoomOpen(false)}
+            >
+              <button
+                type="button"
+                className="scene10-player__detail-modal-close"
+                onClick={() => setIsDetailZoomOpen(false)}
+                aria-label="Đóng ảnh phóng to"
+              >
+                <X size={26} strokeWidth={2.1} />
+              </button>
+              <button
+                type="button"
+                className="scene10-player__detail-modal-nav scene10-player__detail-modal-nav--left"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  goPrevious();
+                }}
+                aria-label="Xem nhạc cụ trước"
+              >
+                <ChevronLeft size={34} strokeWidth={1.9} />
+              </button>
+              <img
+                className="scene10-player__detail-modal-image"
+                src={selectedInstrument.detailImage || selectedInstrument.cardImage}
+                alt={`Thông tin ${selectedInstrument.name}`}
+                onClick={(event) => event.stopPropagation()}
+                loading="eager"
+                decoding="async"
+              />
+              <button
+                type="button"
+                className="scene10-player__detail-modal-nav scene10-player__detail-modal-nav--right"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  goNext();
+                }}
+                aria-label="Xem nhạc cụ tiếp theo"
+              >
+                <ChevronRight size={34} strokeWidth={1.9} />
+              </button>
+            </div>,
+            document.body
+          )
+        : null}
 
       <div className="scene10-player__bar">
         <img className="scene10-player__bar-frame" src={playlistFrame} alt="" loading="lazy" decoding="async" />

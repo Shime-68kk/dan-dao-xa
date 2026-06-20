@@ -85,6 +85,27 @@
   width: 340px;
 }
 
+.scene07__clock-art-cover {
+  position: absolute;
+  left: 640px;
+  top: 496px;
+  z-index: 3;
+  display: block;
+  width: 165px;
+  height: 42px;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04)),
+    url("../../../assets/page01/scene07/scene07-bg.png");
+  background-position:
+    0 0,
+    -640px -496px;
+  background-repeat: no-repeat;
+  background-size:
+    100% 100%,
+    1366px 882px;
+  pointer-events: none;
+}
+
 .scene07__element--tune {
   left: 856px;
   top: 260px;
@@ -148,6 +169,39 @@
   line-height: 1.08;
   font-weight: 700;
   color: #f1b36f;
+}
+
+.scene07__number--two-a,
+.scene07__number--two-b {
+  position: absolute;
+}
+
+.scene07__duration-text {
+  position: relative;
+  z-index: 2;
+}
+
+.scene07__duration-underline {
+  position: absolute;
+  display: block;
+  width: 96px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(245, 232, 210, 0.9);
+  transform: rotate(-14deg);
+  transform-origin: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scene07__duration-underline--two-a {
+  left: 64px;
+  top: 33px;
+}
+
+.scene07__duration-underline--two-b {
+  left: 68px;
+  top: 31px;
 }
 
 .scene07__number--two-a {

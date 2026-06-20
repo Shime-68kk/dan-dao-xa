@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import scene15Bg from "../../../assets/page01/scene15/scene15-bg.png";
+import finalFooterOverlay from "../../../assets/page01/scene15/final-footer-overlay.png";
 import scene15Title from "../../../assets/page01/scene15/scene15-title.png";
 import "./Scene15FinalClosing.css";
 
@@ -99,6 +100,15 @@ export default function Scene15FinalClosing() {
               </span>
             </p>
           </div>
+
+          <img
+            className="scene15__footer-overlay"
+            src={finalFooterOverlay}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+          />
         </div>
       </div>
     </section>

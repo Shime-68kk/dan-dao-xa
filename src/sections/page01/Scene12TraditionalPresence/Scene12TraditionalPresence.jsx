@@ -1,7 +1,7 @@
 import { Maximize2, Pause, Play, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import scene12Bg from "../../../assets/page01/scene12/scene12-bg.png";
-import scene12Poster from "../../../assets/page01/scene12/scene12-video-poster.jpg";
+import scene12Poster from "../../../assets/page01/scene12/scene12-video-cover.jpg";
 import "./Scene12TraditionalPresence.css";
 
 const SCENE12_WIDTH = 1366;
