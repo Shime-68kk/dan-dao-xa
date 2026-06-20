@@ -82,51 +82,6 @@
   transform: translate3d(0, 0, 0);
 }
 
-@media (max-width: 767px) {
-  .scene14 {
-    height: auto;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .scene14__scale-shell {
-    height: auto;
-    overflow: visible;
-  }
-
-  .scene14__artboard {
-    position: relative;
-    display: flex;
-    width: 100%;
-    min-height: 100svh;
-    height: auto;
-    flex-direction: column;
-    justify-content: center;
-    gap: 28px;
-    padding: 96px 7vw;
-    box-sizing: border-box;
-    overflow: hidden;
-    transform: none;
-  }
-
-  .scene14__bg {
-    width: 100%;
-    height: 100%;
-    object-position: center;
-  }
-
-  .scene14-copy,
-  .scene14-copy--first,
-  .scene14-copy--second {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 86vw;
-    font-size: 12px;
-    line-height: 1.58;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .scene14-copy {
     opacity: 1 !important;

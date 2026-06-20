@@ -109,6 +109,13 @@ export default function Scene15FinalClosing() {
             decoding="async"
             aria-hidden="true"
           />
+          <a
+            className="scene15__facebook-link"
+            href="https://www.facebook.com/profile.php?id=61590836188556"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Mở Facebook Bách Nghệ Ký"
+          />
         </div>
       </div>
     </section>

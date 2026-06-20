@@ -1,19 +1,19 @@
 .scene06-steps {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
-  height: 100vh;
-  height: 100svh;
+  min-height: calc(var(--scene06-steps-count, 4) * 100vh);
+  min-height: calc(var(--scene06-steps-count, 4) * 100svh);
+  height: calc(var(--scene06-steps-count, 4) * 100vh);
+  height: calc(var(--scene06-steps-count, 4) * 100svh);
   margin: 0;
-  overflow: hidden;
+  overflow: visible;
   overflow-x: clip;
   isolation: isolate;
-  background: transparent;
+  background: #1b0d07;
 }
 
 .scene06-steps__sticky {
-  position: relative;
+  position: sticky;
   left: 0;
   top: 0;
   width: 100%;
@@ -26,6 +26,8 @@
 
 .scene06-steps__viewport {
   position: relative;
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 100vh;
   height: 100svh;
@@ -38,8 +40,7 @@
   left: 0;
   top: 0;
   width: calc(1366px * var(--scene06-steps-scale, 1));
-  height: 100vh;
-  height: 100svh;
+  height: var(--scene06-stage-height, 768px);
   transform: none;
   transform-origin: top left;
   overflow: hidden;
@@ -625,10 +626,10 @@
 
 @media (max-width: 768px) {
   .scene06-steps {
-    min-height: 100vh;
-    min-height: 100svh;
-    height: 100vh;
-    height: 100svh;
+    min-height: calc(var(--scene06-steps-count, 4) * 100vh);
+    min-height: calc(var(--scene06-steps-count, 4) * 100svh);
+    height: calc(var(--scene06-steps-count, 4) * 100vh);
+    height: calc(var(--scene06-steps-count, 4) * 100svh);
   }
 
   .scene06-steps__sticky,

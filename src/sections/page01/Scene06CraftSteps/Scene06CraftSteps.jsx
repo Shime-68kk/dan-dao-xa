@@ -13,10 +13,10 @@ import flowerOrnament from "../../../assets/page01/scene06/steps/ornaments/flowe
 import "./Scene06CraftSteps.css";
 
 const BASE_WIDTH = 1366;
+const BASE_HEIGHT = 768;
 const GROUP_COUNT = 4;
-const SWITCH_LOCK_MS = 620;
-const WHEEL_THRESHOLD = 8;
-const SWIPE_THRESHOLD = 48;
+const GROUP_SCROLL_DISTANCE_MULTIPLIER = 2;
+const SCENE06_SCROLL_SPAN = 1 + (GROUP_COUNT - 1) * GROUP_SCROLL_DISTANCE_MULTIPLIER;
 const defaultTitleLines = ["CÁC", "BƯỚC", "LÀM", "ĐÀN"];
 const CARD_COLUMNS_MAIN = [
   { x: 245 },
@@ -368,168 +368,77 @@ function Group4FinalQuote({ isActive }) {
 
 export default function Scene06CraftSteps() {
   const sectionRef = useRef(null);
-  const activeIndexRef = useRef(0);
-  const switchLockRef = useRef(false);
-  const lockTimerRef = useRef(0);
-  const touchStartYRef = useRef(null);
-  const latestTouchYRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [frameWidth, setFrameWidth] = useState(() =>
-    typeof window === "undefined" ? BASE_WIDTH : window.innerWidth
-  );
+  const [frameSize, setFrameSize] = useState(() => ({
+    width: typeof window === "undefined" ? BASE_WIDTH : window.innerWidth,
+    height: typeof window === "undefined" ? BASE_HEIGHT : window.innerHeight,
+  }));
 
   useEffect(() => {
     let frame = 0;
-    const updateFrameWidth = () => {
+    const updateFrameSize = () => {
       if (frame) window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
         const scene05Frame = document.querySelector(".scene05-visual-wrap");
-        setFrameWidth(scene05Frame?.getBoundingClientRect().width || window.innerWidth);
+        const visualViewport = window.visualViewport;
+        setFrameSize({
+          width: scene05Frame?.getBoundingClientRect().width || window.innerWidth,
+          height: visualViewport?.height || window.innerHeight,
+        });
       });
     };
 
-    updateFrameWidth();
-    window.addEventListener("resize", updateFrameWidth);
-    window.addEventListener("orientationchange", updateFrameWidth);
+    updateFrameSize();
+    window.addEventListener("resize", updateFrameSize);
+    window.addEventListener("orientationchange", updateFrameSize);
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateFrameWidth);
-      window.removeEventListener("orientationchange", updateFrameWidth);
+      window.removeEventListener("resize", updateFrameSize);
+      window.removeEventListener("orientationchange", updateFrameSize);
     };
   }, []);
-
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
 
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return undefined;
+    let frame = 0;
 
-    const isSceneActive = () => {
+    const updateActiveGroup = () => {
       const rect = node.getBoundingClientRect();
       const viewportHeight = window.innerHeight || 1;
-      return rect.top <= viewportHeight * 0.35 && rect.bottom >= viewportHeight * 0.65;
+      const scrollableDistance = Math.max(1, rect.height - viewportHeight);
+      const rawProgress = -rect.top / scrollableDistance;
+      const progress = Math.min(1, Math.max(0, rawProgress));
+      const nextIndex = Math.min(
+        GROUP_COUNT - 1,
+        Math.floor(progress * GROUP_COUNT)
+      );
+
+      setActiveIndex((currentIndex) =>
+        currentIndex === nextIndex ? currentIndex : nextIndex
+      );
     };
 
-    const pinSceneIntoView = () => {
-      node.scrollIntoView({
-        block: "start",
-        behavior: "auto",
-      });
+    const requestUpdate = () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(updateActiveGroup);
     };
 
-    const switchGroup = (nextIndex) => {
-      switchLockRef.current = true;
-      activeIndexRef.current = nextIndex;
-      window.clearTimeout(lockTimerRef.current);
-      pinSceneIntoView();
-      setActiveIndex(nextIndex);
-      lockTimerRef.current = window.setTimeout(() => {
-        switchLockRef.current = false;
-      }, SWITCH_LOCK_MS);
-    };
-
-    const handleWheel = (event) => {
-      if (!isSceneActive()) {
-        return;
-      }
-
-      if (switchLockRef.current) {
-        event.preventDefault();
-        return;
-      }
-
-      if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) {
-        return;
-      }
-
-      const direction = event.deltaY > 0 ? 1 : -1;
-      const currentIndex = activeIndexRef.current;
-      const nextIndex = currentIndex + direction;
-
-      if (nextIndex < 0 || nextIndex >= GROUP_COUNT) {
-        return;
-      }
-
-      event.preventDefault();
-      switchGroup(nextIndex);
-    };
-
-    const handleTouchStart = (event) => {
-      if (!isSceneActive()) return;
-      const startY = event.touches[0]?.clientY ?? null;
-      touchStartYRef.current = startY;
-      latestTouchYRef.current = startY;
-    };
-
-    const handleTouchMove = (event) => {
-      if (!isSceneActive() || touchStartYRef.current === null) return;
-      latestTouchYRef.current = event.touches[0]?.clientY ?? latestTouchYRef.current;
-
-      const deltaY = touchStartYRef.current - latestTouchYRef.current;
-      if (Math.abs(deltaY) < 6) return;
-
-      const direction = deltaY > 0 ? 1 : -1;
-      const currentIndex = activeIndexRef.current;
-      const canSwitch =
-        (direction > 0 && currentIndex < GROUP_COUNT - 1) ||
-        (direction < 0 && currentIndex > 0);
-
-      if (switchLockRef.current || canSwitch) {
-        event.preventDefault();
-      }
-    };
-
-    const handleTouchEnd = (event) => {
-      if (!isSceneActive() || touchStartYRef.current === null) {
-        touchStartYRef.current = null;
-        latestTouchYRef.current = null;
-        return;
-      }
-
-      if (switchLockRef.current) {
-        event.preventDefault();
-        touchStartYRef.current = null;
-        latestTouchYRef.current = null;
-        return;
-      }
-
-      const endY = event.changedTouches[0]?.clientY ?? latestTouchYRef.current ?? touchStartYRef.current;
-      const deltaY = touchStartYRef.current - endY;
-      touchStartYRef.current = null;
-      latestTouchYRef.current = null;
-
-      if (Math.abs(deltaY) < SWIPE_THRESHOLD) return;
-
-      const direction = deltaY > 0 ? 1 : -1;
-      const currentIndex = activeIndexRef.current;
-      const nextIndex = currentIndex + direction;
-
-      if (nextIndex < 0 || nextIndex >= GROUP_COUNT) {
-        return;
-      }
-
-      event.preventDefault();
-      switchGroup(nextIndex);
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    window.addEventListener("touchend", handleTouchEnd, { passive: false });
+    requestUpdate();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    window.addEventListener("orientationchange", requestUpdate);
 
     return () => {
-      window.clearTimeout(lockTimerRef.current);
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      window.removeEventListener("orientationchange", requestUpdate);
     };
   }, []);
 
-  const scale = frameWidth / BASE_WIDTH;
+  const scale = Math.min(frameSize.width / BASE_WIDTH, frameSize.height / BASE_HEIGHT);
   const isGroup4Active = activeIndex === 3;
 
   return (
@@ -537,7 +446,11 @@ export default function Scene06CraftSteps() {
       ref={sectionRef}
       className="scene06-steps"
       aria-label="Các bước làm đàn"
-      style={{ "--scene06-steps-scale": scale }}
+      style={{
+        "--scene06-steps-scale": scale,
+        "--scene06-stage-height": `${BASE_HEIGHT * scale}px`,
+        "--scene06-steps-count": SCENE06_SCROLL_SPAN,
+      }}
     >
       <div className="scene06-steps__sticky">
         <div className="scene06-steps__viewport">

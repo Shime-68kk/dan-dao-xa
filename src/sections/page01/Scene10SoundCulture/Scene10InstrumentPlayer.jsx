@@ -7,6 +7,8 @@ import "./Scene10InstrumentPlayer.css";
 
 const AUDIO_FOCUS_EVENT = "dao-xa:scene10-audio-focus";
 const SCENE10_AUDIO_FOCUS_EVENT = "scene10-audio-focus";
+const SCENE10_SWIPE_THRESHOLD = 26;
+const SCENE10_SWIPE_AXIS_LOCK = 1.05;
 
 function getCarouselOffset(index, selectedIndex, total) {
   let offset = index - selectedIndex;
@@ -248,7 +250,12 @@ export default function Scene10InstrumentPlayer() {
     const deltaY = event.clientY - dragStartRef.current.y;
     dragStartRef.current = null;
 
-    if (Math.abs(deltaX) < 42 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+    if (
+      Math.abs(deltaX) < SCENE10_SWIPE_THRESHOLD ||
+      Math.abs(deltaX) < Math.abs(deltaY) * SCENE10_SWIPE_AXIS_LOCK
+    ) {
+      return;
+    }
     if (deltaX < 0) goNext();
     else goPrevious();
   };

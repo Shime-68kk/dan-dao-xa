@@ -354,6 +354,22 @@ export default function Scene11ModernAudience() {
             aria-label="Sự trở lại của nhạc truyền thống trong thị hiếu khán giả"
             style={part1LayerStyle}
           >
+            <div className="scene11-slide1-bg-stack" aria-hidden="true">
+              <img
+                className="scene11-slide1-bg scene11-slide1-bg--wood"
+                src={scene11WoodBg}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <img
+                className="scene11-slide1-bg scene11-slide1-bg--collage scene11-reveal scene11-reveal--bg"
+                src={scene11CollageOverlay}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
             <div className="scene11-artboard scene11-artboard--part1 scene11-part1">
               <img className="scene11__wood-bg" src={scene11WoodBg} alt="" loading="lazy" decoding="async" />
               <img
@@ -393,6 +409,14 @@ export default function Scene11ModernAudience() {
             aria-label="Trống cơm case study"
             style={part2LayerStyle}
           >
+            <img
+              className="scene11-fullbleed-bg scene11-fullbleed-bg--part2"
+              src={scene11TrongComBg}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
             <div className="scene11-artboard scene11-artboard--part2 scene11-part2">
               <img className="scene11-part2__bg" src={scene11TrongComBg} alt="" loading="lazy" decoding="async" />
               <div className="scene11-part2__shade" aria-hidden="true" />
@@ -455,6 +479,14 @@ export default function Scene11ModernAudience() {
             aria-label="Mưa trên phố Huế case study"
             style={part3LayerStyle}
           >
+            <img
+              className="scene11-fullbleed-bg scene11-fullbleed-bg--part3"
+              src={scene11MuaTrenPhoHueBg}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
             <div className="scene11-artboard scene11-artboard--part3 scene11-part3">
               <img className="scene11-part3__bg" src={scene11MuaTrenPhoHueBg} alt="" loading="lazy" decoding="async" />
               <div className="scene11-part3__shade" aria-hidden="true" />
@@ -527,6 +559,14 @@ export default function Scene11ModernAudience() {
             aria-label="Bắc Bling case study"
             style={part4LayerStyle}
           >
+            <img
+              className="scene11-fullbleed-bg scene11-fullbleed-bg--part4"
+              src={scene11BacBlingBg}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
             <div className="scene11-artboard scene11-artboard--part4 scene11-part4">
               <img className="scene11-part4__bg" src={scene11BacBlingBg} alt="" loading="lazy" decoding="async" />
               <div className="scene11-part4__shade" aria-hidden="true" />
