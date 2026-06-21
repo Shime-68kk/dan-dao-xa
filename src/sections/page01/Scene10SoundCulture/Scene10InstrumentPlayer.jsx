@@ -7,8 +7,9 @@ import "./Scene10InstrumentPlayer.css";
 
 const AUDIO_FOCUS_EVENT = "dao-xa:scene10-audio-focus";
 const SCENE10_AUDIO_FOCUS_EVENT = "scene10-audio-focus";
-const SCENE10_SWIPE_THRESHOLD = 26;
-const SCENE10_SWIPE_AXIS_LOCK = 1.05;
+const SCENE10_SWIPE_THRESHOLD = 20;
+const SCENE10_SWIPE_VELOCITY_THRESHOLD = 0.25;
+const SCENE10_SWIPE_AXIS_LOCK = 1.15;
 
 function getCarouselOffset(index, selectedIndex, total) {
   let offset = index - selectedIndex;
@@ -32,6 +33,7 @@ export default function Scene10InstrumentPlayer() {
   const rootRef = useRef(null);
   const audioRef = useRef(null);
   const dragStartRef = useRef(null);
+  const suppressNextCardClickRef = useRef(false);
   const volumeRef = useRef(null);
   const volumeDraggingRef = useRef(false);
   const hasUserEnabledScene10AudioRef = useRef(false);
@@ -111,6 +113,11 @@ export default function Scene10InstrumentPlayer() {
   const goNext = useCallback(() => {
     selectIndex(selectedIndex + 1);
   }, [selectIndex, selectedIndex]);
+
+  const handleOpenDetailZoom = useCallback(() => {
+    if (!isInfoOpen) return;
+    setIsDetailZoomOpen(true);
+  }, [isInfoOpen]);
 
   useEffect(() => {
     const node = rootRef.current;
@@ -237,10 +244,16 @@ export default function Scene10InstrumentPlayer() {
   };
 
   const handlePointerDown = (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
     dragStartRef.current = {
       x: event.clientX,
       y: event.clientY,
+      time: performance.now(),
+      pointerId: event.pointerId,
     };
+    if (event.currentTarget.setPointerCapture) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
   };
 
   const handlePointerUp = (event) => {
@@ -248,16 +261,36 @@ export default function Scene10InstrumentPlayer() {
 
     const deltaX = event.clientX - dragStartRef.current.x;
     const deltaY = event.clientY - dragStartRef.current.y;
+    const elapsed = Math.max(performance.now() - dragStartRef.current.time, 1);
+    const velocityX = Math.abs(deltaX) / elapsed;
     dragStartRef.current = null;
 
-    if (
-      Math.abs(deltaX) < SCENE10_SWIPE_THRESHOLD ||
-      Math.abs(deltaX) < Math.abs(deltaY) * SCENE10_SWIPE_AXIS_LOCK
-    ) {
+    if (event.currentTarget.releasePointerCapture && event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    const isHorizontalSwipe = Math.abs(deltaX) >= Math.abs(deltaY) * SCENE10_SWIPE_AXIS_LOCK;
+    const hasEnoughDistance = Math.abs(deltaX) >= SCENE10_SWIPE_THRESHOLD;
+    const hasEnoughVelocity = velocityX >= SCENE10_SWIPE_VELOCITY_THRESHOLD && Math.abs(deltaX) >= SCENE10_SWIPE_THRESHOLD * 0.65;
+
+    if (!isHorizontalSwipe || (!hasEnoughDistance && !hasEnoughVelocity)) {
       return;
     }
+
+    suppressNextCardClickRef.current = true;
+    window.setTimeout(() => {
+      suppressNextCardClickRef.current = false;
+    }, 120);
+
     if (deltaX < 0) goNext();
     else goPrevious();
+  };
+
+  const handlePointerCancel = (event) => {
+    dragStartRef.current = null;
+    if (event.currentTarget.releasePointerCapture && event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
   };
 
   const renderedCards = useMemo(
@@ -288,6 +321,7 @@ export default function Scene10InstrumentPlayer() {
         className="scene10-player__carousel"
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerCancel}
       >
         <button
           className="scene10-player__arrow scene10-player__arrow--left"
@@ -310,7 +344,10 @@ export default function Scene10InstrumentPlayer() {
               data-offset={offset}
               aria-label={`Chọn ${instrument.name}`}
               aria-pressed={index === selectedIndex}
-              onClick={() => selectIndex(index)}
+              onClick={() => {
+                if (suppressNextCardClickRef.current) return;
+                selectIndex(index);
+              }}
               style={{ "--scene10-card-depth": Math.abs(offset) }}
             >
               <img
@@ -367,7 +404,9 @@ export default function Scene10InstrumentPlayer() {
         <button
           className="scene10-player__detail"
           type="button"
-          onClick={() => setIsDetailZoomOpen(true)}
+          onClick={handleOpenDetailZoom}
+          disabled={!isInfoOpen}
+          tabIndex={isInfoOpen ? 0 : -1}
           aria-label={`Phóng to thông tin ${selectedInstrument.name}`}
         >
           <span className="scene10-player__detail-media" aria-hidden="true">

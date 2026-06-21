@@ -48,15 +48,17 @@
 
 @media (max-width: 767px) {
   .scene01-scene02-bridge {
-    height: clamp(76px, 19vw, 118px);
-    margin-top: clamp(-48px, -8vw, -28px);
-    margin-bottom: 0;
+    height: clamp(88px, 22vw, 126px);
+    margin-top: clamp(-54px, -9vw, -32px);
+    margin-bottom: clamp(-42px, -9vw, -30px);
+    overflow: visible;
+    contain: layout;
   }
 
   .page01-bridge-hands {
     left: 50%;
-    top: 4px;
-    width: clamp(80px, 24vw, 150px);
+    top: clamp(3px, 1.4vw, 9px);
+    width: clamp(96px, 30vw, 164px);
     transform: translateX(-50%) rotate(8deg);
   }
 }

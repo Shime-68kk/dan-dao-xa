@@ -49,6 +49,7 @@
 }
 
 .audio-narration__button {
+  position: relative;
   display: grid;
   width: 2.9rem;
   height: 2.9rem;
@@ -148,6 +149,13 @@
   .audio-narration__button {
     width: 3.25rem;
     height: 3.25rem;
+  }
+
+  .audio-narration__button::before {
+    position: absolute;
+    inset: clamp(-5rem, -18vw, -1.25rem);
+    border-radius: 50%;
+    content: "";
   }
 }
 

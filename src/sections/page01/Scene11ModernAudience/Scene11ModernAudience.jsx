@@ -13,11 +13,27 @@ const SCENE11_TOTAL_STEPS = 4;
 const SCENE11_STEP_HEIGHT_VH = 100;
 const SCENE11_HOLD_EXTRA_VH = 20;
 const SCENE11_SCROLL_VH = SCENE11_TOTAL_STEPS * SCENE11_STEP_HEIGHT_VH + SCENE11_HOLD_EXTRA_VH;
+const SCENE11_MOBILE_STAGE_PADDING = 24;
 const TRONG_COM_YOUTUBE_URL = "https://www.youtube.com/watch?v=nXiwlKJSkHY&list=RDnXiwlKJSkHY&start_radio=1";
 const MUA_TREN_PHO_HUE_YOUTUBE_URL = "https://www.youtube.com/watch?v=48XgscozT-A&list=RD48XgscozT-A&start_radio=1";
 const BAC_BLING_YOUTUBE_URL = "https://www.youtube.com/watch?v=CL13X-8o4h0&list=RDCL13X-8o4h0&start_radio=1";
 const SCENE11_SHARED_PERFORMANCE_COPY =
   "Sự dịch chuyển này thể hiện ngày càng rõ trên các sân khấu giải trí đại chúng. Trong chương trình Anh Trai Vượt Ngàn Chông Gai, tiết mục Trống cơm gây ấn tượng khi đưa tiếng đàn bầu vào một bản phối hiện đại, tạo nên sự giao thoa giữa chất liệu dân gian và ngôn ngữ biểu diễn đương đại. Tương tự, tiết mục Mưa trên phố Huế cũng thu hút sự chú ý của khán giả khi kết hợp âm thanh của đàn tranh, đàn tỳ bà cùng nhiều yếu tố âm nhạc truyền thống trong một không gian trình diễn mới mẻ.";
+
+function getScene11Scale() {
+  if (typeof window === "undefined") return 1;
+
+  const isNarrowViewport = window.innerWidth < 768;
+  const availableWidth = isNarrowViewport
+    ? Math.max(1, window.innerWidth - SCENE11_MOBILE_STAGE_PADDING)
+    : window.innerWidth;
+  const availableHeight = isNarrowViewport
+    ? Math.max(1, window.innerHeight - SCENE11_MOBILE_STAGE_PADDING)
+    : window.innerHeight;
+  const widthScale = availableWidth / SCENE11_WIDTH;
+  const heightScale = availableHeight / SCENE11_HEIGHT;
+  return Math.min(widthScale, heightScale);
+}
 
 const SCENE11_STEPS = [
   {
@@ -200,10 +216,7 @@ export default function Scene11ModernAudience() {
   const [part3Progress, setPart3Progress] = useState(0);
   const [part4Progress, setPart4Progress] = useState(0);
   const [pinDebugRect, setPinDebugRect] = useState({ top: 0, bottom: 0 });
-  const [scale, setScale] = useState(() => {
-    if (typeof window === "undefined") return 1;
-    return Math.min(window.innerWidth / SCENE11_WIDTH, window.innerHeight / SCENE11_HEIGHT);
-  });
+  const [scale, setScale] = useState(getScene11Scale);
 
   const part1 = useMemo(() => SCENE11_STEPS[0], []);
   const part2 = useMemo(() => SCENE11_STEPS[1], []);
@@ -220,7 +233,7 @@ export default function Scene11ModernAudience() {
     const updateScale = () => {
       if (frame) window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
-        setScale(Math.min(window.innerWidth / SCENE11_WIDTH, window.innerHeight / SCENE11_HEIGHT));
+        setScale(getScene11Scale());
       });
     };
 
@@ -417,6 +430,7 @@ export default function Scene11ModernAudience() {
               decoding="async"
               aria-hidden="true"
             />
+            <div className="scene11-fullbleed-shade scene11-fullbleed-shade--part2" aria-hidden="true" />
             <div className="scene11-artboard scene11-artboard--part2 scene11-part2">
               <img className="scene11-part2__bg" src={scene11TrongComBg} alt="" loading="lazy" decoding="async" />
               <div className="scene11-part2__shade" aria-hidden="true" />
@@ -487,6 +501,7 @@ export default function Scene11ModernAudience() {
               decoding="async"
               aria-hidden="true"
             />
+            <div className="scene11-fullbleed-shade scene11-fullbleed-shade--part3" aria-hidden="true" />
             <div className="scene11-artboard scene11-artboard--part3 scene11-part3">
               <img className="scene11-part3__bg" src={scene11MuaTrenPhoHueBg} alt="" loading="lazy" decoding="async" />
               <div className="scene11-part3__shade" aria-hidden="true" />
@@ -567,6 +582,7 @@ export default function Scene11ModernAudience() {
               decoding="async"
               aria-hidden="true"
             />
+            <div className="scene11-fullbleed-shade scene11-fullbleed-shade--part4" aria-hidden="true" />
             <div className="scene11-artboard scene11-artboard--part4 scene11-part4">
               <img className="scene11-part4__bg" src={scene11BacBlingBg} alt="" loading="lazy" decoding="async" />
               <div className="scene11-part4__shade" aria-hidden="true" />
