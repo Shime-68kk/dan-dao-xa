@@ -245,6 +245,7 @@ export default function Scene10InstrumentPlayer() {
 
   const handlePointerDown = (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (event.target.closest(".scene10-player__arrow")) return;
     dragStartRef.current = {
       x: event.clientX,
       y: event.clientY,
@@ -293,6 +294,10 @@ export default function Scene10InstrumentPlayer() {
     }
   };
 
+  const stopArrowPointerPropagation = (event) => {
+    event.stopPropagation();
+  };
+
   const renderedCards = useMemo(
     () =>
       SCENE10_VISIBLE_INSTRUMENTS.map((instrument, index) => {
@@ -326,6 +331,8 @@ export default function Scene10InstrumentPlayer() {
         <button
           className="scene10-player__arrow scene10-player__arrow--left"
           type="button"
+          onPointerDown={stopArrowPointerPropagation}
+          onPointerUp={stopArrowPointerPropagation}
           onClick={(event) => {
             event.stopPropagation();
             goPrevious();
@@ -370,6 +377,8 @@ export default function Scene10InstrumentPlayer() {
         <button
           className="scene10-player__arrow scene10-player__arrow--right"
           type="button"
+          onPointerDown={stopArrowPointerPropagation}
+          onPointerUp={stopArrowPointerPropagation}
           onClick={(event) => {
             event.stopPropagation();
             goNext();
