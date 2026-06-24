@@ -173,7 +173,7 @@
 .scene01__subtitle {
   position: absolute;
   left: 138px;
-  top: 383px;
+  top: 398px;
   z-index: 45;
   width: 520px;
   margin: 0;
@@ -181,7 +181,7 @@
   font-family: var(--font-client-aurora);
   font-size: 33.6px;
   font-weight: 400;
-  line-height: 0.98;
+  line-height: 1.24;
   text-align: center;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
 }
@@ -208,9 +208,10 @@
   position: absolute;
   left: 134px;
   top: 666px;
-  z-index: 50;
+  z-index: 80;
   width: 230px;
   height: 86px;
+  pointer-events: auto;
 }
 
 .scene01__scroll-pill {

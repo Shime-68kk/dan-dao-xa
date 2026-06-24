@@ -10,6 +10,16 @@ const SCENE10_AUDIO_FOCUS_EVENT = "scene10-audio-focus";
 const SCENE10_SWIPE_THRESHOLD = 20;
 const SCENE10_SWIPE_VELOCITY_THRESHOLD = 0.25;
 const SCENE10_SWIPE_AXIS_LOCK = 1.15;
+const SCENE10_INSTRUMENT_MENU_ORDER = [
+  "dan-bau",
+  "dan-day",
+  "dan-nguyet",
+  "dan-nhi",
+  "dan-tam",
+  "dan-tranh",
+  "dan-tu",
+  "dan-ty-ba",
+];
 
 function getCarouselOffset(index, selectedIndex, total) {
   let offset = index - selectedIndex;
@@ -35,7 +45,10 @@ export default function Scene10InstrumentPlayer() {
   const dragStartRef = useRef(null);
   const suppressNextCardClickRef = useRef(false);
   const volumeRef = useRef(null);
+  const instrumentMenuRef = useRef(null);
   const volumeDraggingRef = useRef(false);
+  const previousVolumeRef = useRef(0.75);
+  const lastVolumeTapRef = useRef(0);
   const hasUserEnabledScene10AudioRef = useRef(false);
   const userPausedRef = useRef(false);
   const autoplayAttemptedRef = useRef(false);
@@ -48,6 +61,7 @@ export default function Scene10InstrumentPlayer() {
   const [volume, setVolume] = useState(0.75);
   const [muted, setMuted] = useState(false);
   const [showVolume, setShowVolume] = useState(false);
+  const [isInstrumentMenuOpen, setIsInstrumentMenuOpen] = useState(false);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [isDetailZoomOpen, setIsDetailZoomOpen] = useState(false);
 
@@ -113,6 +127,38 @@ export default function Scene10InstrumentPlayer() {
   const goNext = useCallback(() => {
     selectIndex(selectedIndex + 1);
   }, [selectIndex, selectedIndex]);
+
+  const toggleMute = useCallback(() => {
+    if (muted || volume === 0) {
+      const restoredVolume = previousVolumeRef.current || 0.75;
+      setVolume(restoredVolume);
+      setMuted(false);
+      return;
+    }
+
+    previousVolumeRef.current = volume || previousVolumeRef.current || 0.75;
+    setMuted(true);
+  }, [muted, volume]);
+
+  const handleVolumeButtonClick = useCallback(
+    (event) => {
+      event.stopPropagation();
+
+      const now = Date.now();
+      if (now - lastVolumeTapRef.current < 280) {
+        toggleMute();
+        lastVolumeTapRef.current = 0;
+        setShowVolume(true);
+        setIsInstrumentMenuOpen(false);
+        return;
+      }
+
+      lastVolumeTapRef.current = now;
+      setShowVolume((current) => !current);
+      setIsInstrumentMenuOpen(false);
+    },
+    [toggleMute]
+  );
 
   const handleOpenDetailZoom = useCallback(() => {
     if (!isInfoOpen) return;
@@ -212,8 +258,11 @@ export default function Scene10InstrumentPlayer() {
 
   useEffect(() => {
     const handlePointerDown = (event) => {
-      if (!volumeRef.current || volumeRef.current.contains(event.target)) return;
+      if (volumeRef.current?.contains(event.target)) return;
+      if (instrumentMenuRef.current?.contains(event.target)) return;
+
       setShowVolume(false);
+      setIsInstrumentMenuOpen(false);
     };
 
     document.addEventListener("pointerdown", handlePointerDown);
@@ -305,6 +354,15 @@ export default function Scene10InstrumentPlayer() {
         return { instrument, index, offset };
       }),
     [selectedIndex]
+  );
+
+  const instrumentMenuItems = useMemo(
+    () =>
+      SCENE10_INSTRUMENT_MENU_ORDER.map((instrumentId) => {
+        const index = SCENE10_VISIBLE_INSTRUMENTS.findIndex((instrument) => instrument.id === instrumentId);
+        return index >= 0 ? { instrument: SCENE10_VISIBLE_INSTRUMENTS[index], index } : null;
+      }).filter(Boolean),
+    []
   );
 
   return (
@@ -541,16 +599,49 @@ export default function Scene10InstrumentPlayer() {
             {isInfoOpen ? <X size={18} /> : <Info size={18} />}
             <span>Thông tin</span>
           </button>
-          <button type="button" aria-label="Danh sách nhạc cụ">
-            <ListMusic size={19} />
-          </button>
+          <div ref={instrumentMenuRef} className="scene10-player__menu-wrap">
+            <button
+              type="button"
+              aria-label="Chọn nhạc cụ"
+              aria-haspopup="menu"
+              aria-expanded={isInstrumentMenuOpen}
+              onClick={(event) => {
+                event.stopPropagation();
+                setIsInstrumentMenuOpen((current) => !current);
+                setShowVolume(false);
+              }}
+            >
+              <ListMusic size={19} />
+            </button>
+            {isInstrumentMenuOpen ? (
+              <div
+                className="scene10-player__instrument-menu"
+                role="menu"
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={(event) => event.stopPropagation()}
+              >
+                {instrumentMenuItems.map(({ instrument, index }) => (
+                  <button
+                    key={instrument.id}
+                    className={`scene10-player__instrument-menu-item${index === selectedIndex ? " is-active" : ""}`}
+                    type="button"
+                    role="menuitemradio"
+                    aria-checked={index === selectedIndex}
+                    onClick={() => {
+                      selectIndex(index);
+                      setIsInstrumentMenuOpen(false);
+                    }}
+                  >
+                    {instrument.name}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
           <div
             ref={volumeRef}
             className={`scene10-player__volume${showVolume ? " is-open" : ""}`}
             onMouseEnter={() => setShowVolume(true)}
-            onMouseLeave={() => {
-              if (!volumeDraggingRef.current) setShowVolume(false);
-            }}
             onFocus={() => setShowVolume(true)}
             onBlur={(event) => {
               if (!event.currentTarget.contains(event.relatedTarget)) setShowVolume(false);
@@ -558,19 +649,31 @@ export default function Scene10InstrumentPlayer() {
           >
             <button
               type="button"
-              aria-label={muted ? "Bật âm lượng nhạc cụ" : "Tắt âm lượng nhạc cụ"}
-              aria-pressed={muted}
-              onClick={() => {
-                setMuted((current) => {
-                  if (current && volume === 0) setVolume(0.8);
-                  return !current;
-                });
-                setShowVolume(true);
-              }}
+              aria-label="Điều chỉnh âm lượng"
+              aria-expanded={showVolume}
+              onClick={handleVolumeButtonClick}
             >
               {muted || volume === 0 ? <VolumeX size={19} /> : <Volume2 size={19} />}
             </button>
-            <label className="scene10-player__volume-slider">
+            <label
+              className="scene10-player__volume-slider"
+              onPointerDown={(event) => {
+                event.stopPropagation();
+                volumeDraggingRef.current = true;
+                setShowVolume(true);
+              }}
+              onPointerUp={(event) => {
+                event.stopPropagation();
+                volumeDraggingRef.current = false;
+                setShowVolume(true);
+              }}
+              onPointerCancel={(event) => {
+                event.stopPropagation();
+                volumeDraggingRef.current = false;
+              }}
+              onClick={(event) => event.stopPropagation()}
+              onTouchStart={(event) => event.stopPropagation()}
+            >
               <span>Âm lượng nhạc cụ</span>
               <input
                 type="range"
@@ -579,21 +682,11 @@ export default function Scene10InstrumentPlayer() {
                 step="0.01"
                 value={muted ? 0 : volume}
                 aria-label="Điều chỉnh âm lượng"
-                onPointerDown={() => {
-                  volumeDraggingRef.current = true;
-                  setShowVolume(true);
-                }}
-                onPointerUp={() => {
-                  volumeDraggingRef.current = false;
-                  setShowVolume(true);
-                }}
-                onPointerCancel={() => {
-                  volumeDraggingRef.current = false;
-                }}
                 onChange={(event) => {
                   const nextVolume = Number(event.target.value);
                   setVolume(nextVolume);
                   setMuted(nextVolume === 0);
+                  if (nextVolume > 0) previousVolumeRef.current = nextVolume;
                 }}
               />
             </label>

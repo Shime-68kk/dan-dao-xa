@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import villageSign from "../../../assets/page01/scene08/village-sign-corrected.png";
+import topRightImage from "../../../assets/page01/scene08/scene08-top-right-image.png";
 import artisanStaff from "../../../assets/page01/scene08/scene08-artisan-staff.png";
 import artistLockup from "../../../assets/page01/scene08/artist-dao-anh-tuan-title.png";
 import soanPortraitCard from "../../../../slide 8/ảnh 3.png";
@@ -102,7 +102,7 @@ export default function Scene08LastLink() {
 
           <img
             className="scene08__village-sign scene08-reveal scene08-reveal--sign"
-            src={villageSign}
+            src={topRightImage}
             alt=""
             loading="lazy"
             decoding="async"

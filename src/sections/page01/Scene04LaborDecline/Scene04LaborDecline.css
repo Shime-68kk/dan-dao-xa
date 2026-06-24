@@ -46,6 +46,14 @@
   object-fit: fill;
 }
 
+.scene04-content-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  transform: translateX(28px);
+  pointer-events: none;
+}
+
 .scene04-chart-glare-fix {
   position: absolute;
   left: 70px;
@@ -73,6 +81,7 @@
   z-index: 30;
   width: 650px;
   height: 455px;
+  pointer-events: auto;
 }
 
 .labor-chart {
@@ -251,10 +260,10 @@
   gap: 30px;
   color: rgba(255, 246, 232, 0.96);
   font-family: var(--font-client-courier, "Courier New", Courier, monospace);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.01em;
-  line-height: 1.62;
+  line-height: 1.58;
   text-shadow:
     0 2px 0 rgba(0, 0, 0, 0.32),
     0 5px 12px rgba(0, 0, 0, 0.56);
@@ -273,10 +282,10 @@
   margin: 0;
   color: rgba(255, 246, 232, 0.96);
   font-family: var(--font-client-courier, "Courier New", Courier, monospace);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.01em;
-  line-height: 1.62;
+  line-height: 1.58;
   text-shadow:
     0 2px 0 rgba(0, 0, 0, 0.32),
     0 5px 12px rgba(0, 0, 0, 0.56);

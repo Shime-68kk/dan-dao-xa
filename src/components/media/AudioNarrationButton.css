@@ -2,6 +2,7 @@
   width: 14.6rem;
   color: #f6b762;
   filter: drop-shadow(0 0.5rem 1.1rem rgba(0, 0, 0, 0.35));
+  pointer-events: auto;
 }
 
 .audio-narration__label {
@@ -17,10 +18,12 @@
   display: flex;
   align-items: flex-start;
   gap: 0.66rem;
+  pointer-events: auto;
 }
 
 .audio-narration__meter {
   width: 11.25rem;
+  pointer-events: none;
 }
 
 .audio-narration__waveform {
@@ -50,6 +53,7 @@
 
 .audio-narration__button {
   position: relative;
+  z-index: 5;
   display: grid;
   width: 2.9rem;
   height: 2.9rem;
@@ -60,6 +64,8 @@
   color: #3d2114;
   background: linear-gradient(180deg, #ffd28b 0%, #d68e3a 100%);
   box-shadow: 0 0.65rem 1.3rem rgba(0, 0, 0, 0.34);
+  cursor: pointer;
+  pointer-events: auto;
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 

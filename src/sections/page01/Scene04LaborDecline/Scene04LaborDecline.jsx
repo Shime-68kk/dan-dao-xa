@@ -42,37 +42,39 @@ export default function Scene04LaborDecline() {
         <div className="scene04-stage">
           <img className="scene04-base-bg" src={baseWoodBackground} alt="" aria-hidden="true" loading="lazy" />
           <img className="scene04-overlay-bg" src={decorativeOverlay} alt="" aria-hidden="true" loading="lazy" />
-          <div className="scene04-chart-glare-fix" aria-hidden="true" />
+          <div className="scene04-content-layer">
+            <div className="scene04-chart-glare-fix" aria-hidden="true" />
 
-          <div className="scene04-chart-panel scene04-reveal scene04-reveal--chart">
-            <LaborDeclineChart isVisible={isVisible} />
+            <div className="scene04-chart-panel scene04-reveal scene04-reveal--chart">
+              <LaborDeclineChart isVisible={isVisible} />
+            </div>
+
+            <aside className="scene04-right-text" aria-label="Bối cảnh suy giảm lao động">
+              <p className="scene04-reveal scene04-reveal--right-1">
+                Từ một nghề gia truyền, chế tác nhạc cụ dần trở thành sinh kế
+                của nhiều hộ dân địa phương. Có những giai đoạn, gần như cả làng
+                cùng tham gia sản xuất, tạo nên một không gian nghề nghiệp đặc
+                trưng với tiếng cưa, tiếng đục vang lên từ sáng đến tối. Những
+                cây đàn được vận chuyển đi nhiều tỉnh thành, phục vụ các nhà hát,
+                đoàn nghệ thuật và cơ sở đào tạo âm nhạc trên cả nước.
+              </p>
+              <p className="scene04-reveal scene04-reveal--right-2">
+                Tuy nhiên, bức tranh làng nghề ngày nay đã có nhiều thay đổi. Nếu
+                như đầu những năm 1990, Đào Xá có hơn 50 hộ tham gia sản xuất
+                nhạc cụ thì đến năm 2026, hoạt động chế tác nhạc cụ truyền thống
+                gần như chỉ còn được duy trì bởi một hộ gia đình.
+              </p>
+            </aside>
+
+            <p className="scene04-bottom-text scene04-reveal scene04-reveal--bottom">
+              Sự suy giảm liên tục của lực lượng lao động cho thấy nghề làm đàn
+              tại Đào Xá đang đứng trước nguy cơ đứt gãy truyền nghề. Một làng
+              nghề từng phát triển mạnh suốt hơn hai thế kỷ đang phải đối mặt với
+              những thách thức chưa từng có trong việc duy trì lực lượng kế cận.
+              Điều gì đã khiến một làng nghề từng được xem là cái nôi chế tác nhạc
+              cụ dân tộc của Hà Nội dần thu hẹp đến như vậy?
+            </p>
           </div>
-
-          <aside className="scene04-right-text" aria-label="Bối cảnh suy giảm lao động">
-            <p className="scene04-reveal scene04-reveal--right-1">
-              Từ một nghề gia truyền, chế tác nhạc cụ dần trở thành sinh kế
-              của nhiều hộ dân địa phương. Có những giai đoạn, gần như cả làng
-              cùng tham gia sản xuất, tạo nên một không gian nghề nghiệp đặc
-              trưng với tiếng cưa, tiếng đục vang lên từ sáng đến tối. Những
-              cây đàn được vận chuyển đi nhiều tỉnh thành, phục vụ các nhà hát,
-              đoàn nghệ thuật và cơ sở đào tạo âm nhạc trên cả nước.
-            </p>
-            <p className="scene04-reveal scene04-reveal--right-2">
-              Tuy nhiên, bức tranh làng nghề ngày nay đã có nhiều thay đổi. Nếu
-              như đầu những năm 1990, Đào Xá có hơn 50 hộ tham gia sản xuất
-              nhạc cụ thì đến năm 2026, hoạt động chế tác nhạc cụ truyền thống
-              gần như chỉ còn được duy trì bởi một hộ gia đình.
-            </p>
-          </aside>
-
-          <p className="scene04-bottom-text scene04-reveal scene04-reveal--bottom">
-            Sự suy giảm liên tục của lực lượng lao động cho thấy nghề làm đàn
-            tại Đào Xá đang đứng trước nguy cơ đứt gãy truyền nghề. Một làng
-            nghề từng phát triển mạnh suốt hơn hai thế kỷ đang phải đối mặt với
-            những thách thức chưa từng có trong việc duy trì lực lượng kế cận.
-            Điều gì đã khiến một làng nghề từng được xem là cái nôi chế tác nhạc
-            cụ dân tộc của Hà Nội dần thu hẹp đến như vậy?
-          </p>
 
           {debugSlide4 ? (
             <img className="scene04-debug-reference" src={slide4Reference} alt="" aria-hidden="true" />

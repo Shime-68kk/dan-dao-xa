@@ -15,32 +15,35 @@ import Scene13FutureQuestion from "../../sections/page01/Scene13FutureQuestion/S
 import Scene14FutureContinuation from "../../sections/page01/Scene14FutureContinuation/Scene14FutureContinuation.jsx";
 import Scene15FinalClosing from "../../sections/page01/Scene15FinalClosing/Scene15FinalClosing.jsx";
 import bridgeHandsPhoto from "../../assets/page01/shared/bridge-hands-photo.webp";
+import { NarrationAudioProvider } from "../../components/media/NarrationAudioProvider.jsx";
 import "./Page01Story.css";
 
 export default function Page01Story() {
   return (
-    <main className="page01-story" aria-label="Làng đàn Đào Xá">
-      <Scene01Hero />
-      <div className="scene01-scene02-bridge" aria-hidden="true">
-        <div className="page01-bridge-hands">
-          <img src={bridgeHandsPhoto} alt="" loading="eager" />
+    <NarrationAudioProvider>
+      <main className="page01-story" aria-label="Làng đàn Đào Xá">
+        <Scene01Hero />
+        <div className="scene01-scene02-bridge" aria-hidden="true">
+          <div className="page01-bridge-hands">
+            <img src={bridgeHandsPhoto} alt="" loading="eager" />
+          </div>
         </div>
-      </div>
-      <Scene02History />
-      <Scene03Timeline />
-      <Scene04LaborDecline />
-      <Scene05NarrowingPressure />
-      <Scene06CraftJourneyIntro />
-      <Scene06CraftSteps />
-      <Scene07WoodResonance />
-      <Scene08LastLink />
-      <Scene09FinalEcho />
-      <Scene10SoundCulture />
-      <Scene11ModernAudience />
-      <Scene12TraditionalPresence />
-      <Scene13FutureQuestion />
-      <Scene14FutureContinuation />
-      <Scene15FinalClosing />
-    </main>
+        <Scene02History />
+        <Scene03Timeline />
+        <Scene04LaborDecline />
+        <Scene05NarrowingPressure />
+        <Scene06CraftJourneyIntro />
+        <Scene06CraftSteps />
+        <Scene07WoodResonance />
+        <Scene08LastLink />
+        <Scene09FinalEcho />
+        <Scene10SoundCulture />
+        <Scene11ModernAudience />
+        <Scene12TraditionalPresence />
+        <Scene13FutureQuestion />
+        <Scene14FutureContinuation />
+        <Scene15FinalClosing />
+      </main>
+    </NarrationAudioProvider>
   );
 }

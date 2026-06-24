@@ -689,6 +689,60 @@
   font-weight: 700;
 }
 
+.scene10-player__menu-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.scene10-player__instrument-menu {
+  position: absolute;
+  right: 50%;
+  bottom: calc(100% + 12px);
+  z-index: 8;
+  display: grid;
+  width: 178px;
+  max-height: 238px;
+  gap: 3px;
+  padding: 9px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 226, 178, 0.24);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 236, 199, 0.14), rgba(118, 52, 23, 0.18)),
+    rgba(25, 10, 5, 0.74);
+  box-shadow:
+    0 16px 28px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  transform: translateX(50%);
+  pointer-events: auto;
+}
+
+.scene10-player__controls .scene10-player__instrument-menu-item {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 30px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  color: rgba(255, 243, 223, 0.88);
+  background: transparent;
+  box-shadow: none;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+}
+
+.scene10-player__controls .scene10-player__instrument-menu-item:hover,
+.scene10-player__controls .scene10-player__instrument-menu-item:focus-visible,
+.scene10-player__controls .scene10-player__instrument-menu-item.is-active {
+  color: #3b2013;
+  background: linear-gradient(180deg, #ffe0a5, #d29550);
+  transform: none;
+}
+
 .scene10-player__volume {
   position: relative;
   display: grid;
@@ -740,6 +794,8 @@
 .scene10-player__volume-slider input {
   width: 100%;
   accent-color: #f4bf75;
+  cursor: pointer;
+  touch-action: none;
 }
 
 .scene10-player.is-debug-info .scene10-player__info-card,
