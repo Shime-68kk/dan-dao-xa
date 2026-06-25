@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import scene15Bg from "../../../assets/page01/scene15/scene15-bg.png";
 import finalFooterOverlay from "../../../assets/page01/scene15/final-footer-overlay.png";
 import scene15Title from "../../../assets/page01/scene15/scene15-title.png";
+import bnkLogo from "../../../assets/logo.png";
 import "./Scene15FinalClosing.css";
 
 const SCENE15_WIDTH = 1366;
@@ -78,44 +79,51 @@ export default function Scene15FinalClosing() {
             decoding="async"
           />
 
-          <div className="scene15__brand scene15-reveal scene15-reveal--brand">
-            <div className="scene15__brand-name">BÁCH NGHỆ KÝ</div>
+          <div className="scene15__left-cluster scene15-reveal scene15-reveal--brand">
+            <div className="scene15__brand">
+              <img src={bnkLogo} alt="Logo" className="scene15__brand-logo" />
+              <div className="scene15__brand-info">
+                <div className="scene15__brand-name">BÁCH NGHỆ KÝ</div>
+                <a
+                  className="scene15__facebook-link"
+                  href="https://www.facebook.com/profile.php?id=61590836188556"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Mở Facebook Bách Nghệ Ký"
+                >
+                  <svg viewBox="0 0 24 24" width="40" height="40">
+                    <circle cx="12" cy="12" r="12" fill="#1877f2"/>
+                    <path d="M14 12h-2v8H9v-8H7V9.5h2v-2c0-2 1.2-3 3-3 .9 0 1.6.1 1.8.1v2.1h-1.2c-1 0-1.2.5-1.2 1.2v1.6h2.4L14 12z" fill="#ffffff"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <p className="scene15__copyright">
+              © 2026. Toàn bộ bản quyền thuộc Bách Nghệ Ký
+            </p>
           </div>
 
-          <p className="scene15__copyright scene15-reveal scene15-reveal--brand">
-            © 2026. Toàn bộ bản quyền thuộc Bách Nghệ Ký
-          </p>
-
           <div className="scene15__credits scene15-reveal scene15-reveal--credits">
-            <p>
-              <strong>Thực hiện:</strong>
-              <span>Nội dung: Lê Quỳnh Trang, Mai Ngọc Minh</span>
-              <span>Thiết kế: Lã Minh Tâm, Tạ Minh Tâm</span>
+            <p className="scene15__credits-contact">
+              <strong>Thông tin liên hệ:</strong>
+              <span><strong>Hotline:</strong> 0986357691</span>
+              <span><strong>Email:</strong> bachngheky@gmail.com</span>
+              <span><strong>Địa chỉ:</strong> Km10, Nguyễn Trãi, Hà Đông, Hà Nội</span>
             </p>
-            <p>
-              <strong>Hình ảnh:</strong>
+            <p className="scene15__credits-team">
+              <strong>Thực hiện:</strong>
+              <span>Lê Quỳnh Trang, Mai Ngọc Minh, Lã Minh Tâm, Tạ Minh Tâm</span>
+            </p>
+            <p className="scene15__credits-sources">
+              <strong>Nguồn sử dụng trong bài:</strong>
               <span>
-                Nguồn: Lã Minh Tâm, Anh trai vượt ngàn chông gai, Hòa Minzy, Nhạc cụ Đào Xá,
-                internet.
+                Anh trai vượt ngàn chông gai, Hòa Minzy, Nhạc cụ Đào Xá, @n.mih_nghia, @vothanh0604, @dannhidinhtinh, @vudieuthao_tyba, Internet
               </span>
             </p>
           </div>
 
-          <img
-            className="scene15__footer-overlay"
-            src={finalFooterOverlay}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            aria-hidden="true"
-          />
-          <a
-            className="scene15__facebook-link"
-            href="https://www.facebook.com/profile.php?id=61590836188556"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Mở Facebook Bách Nghệ Ký"
-          />
+          <div className="scene15__footer-box" aria-hidden="true" />
         </div>
       </div>
     </section>

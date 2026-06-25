@@ -102,7 +102,7 @@
   display: inline-block;
   width: max-content;
   font-family: var(--font-client-playfair, "Client Playfair Display", "Playfair Display", serif);
-  font-size: 50.2px;
+  font-size: 60px;
   line-height: 0.95;
   font-weight: 760;
   letter-spacing: 0.012em;
@@ -448,6 +448,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .scene13-reveal,
   .scene13__video-play {
     transform: none !important;

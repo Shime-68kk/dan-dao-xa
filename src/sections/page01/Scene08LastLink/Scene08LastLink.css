@@ -270,7 +270,8 @@
   top: 1045px;
   width: 430px;
   line-height: 1.45;
-  text-align: center;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .scene08__staff-paper-group {

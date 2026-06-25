@@ -412,7 +412,7 @@ export default function Scene11ModernAudience() {
                 ))}
               </p>
 
-              <p className="scene11__body scene11-reveal scene11-reveal--body">{part1.body}</p>
+              <p className="scene11__body scene11-reveal scene11-reveal--body"><strong>{part1.body}</strong></p>
             </div>
           </section>
 

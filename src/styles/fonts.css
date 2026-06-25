@@ -94,10 +94,91 @@
   font-weight: 700;
 }
 
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy Regular.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy Italic.otf") format("opentype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy SemiBold.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy SemiBold Italic.otf") format("opentype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy Bold.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy Bold Italic.otf") format("opentype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy XBold.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy XBold Italic.otf") format("opentype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy Black.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("../assets/fonts/SVN-Gilroy/SVN-Gilroy Black Italic.otf") format("opentype");
+  font-display: swap;
+  font-style: italic;
+  font-weight: 900;
+}
+
 :root {
   --font-client-aurora: "Client VL Aurora Aged", "VL Aurora Aged", "Great Vibes", "Dancing Script", cursive;
   --font-client-bastliga: "Client Bastliga", "1FTV VIP Bastliga One", "Great Vibes", "Parisienne", cursive;
   --font-client-courier: "Client Courier New", "Courier New", Courier, monospace;
   --font-client-playfair: "Client Playfair Display", "Playfair Display", "Times New Roman", serif;
   --font-client-cormorant-sc: "Client Cormorant SC", "Cormorant SC", "Times New Roman", serif;
+  --font-client-svn-gilroy: "SVN-Gilroy", "SVN Gilroy", "Svn Gilroy", "Svn gilroy", "SGV-Gilroy", "Gilroy", "Inter", "Arial", sans-serif;
 }

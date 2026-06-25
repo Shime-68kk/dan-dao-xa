@@ -11,6 +11,10 @@
     #2a130a;
 }
 
+.scene05-pressure * {
+  -webkit-text-stroke: 0.15px currentColor;
+}
+
 .scene05-stage {
   position: relative;
   width: min(100%, 1366px);
@@ -484,13 +488,16 @@
   position: relative;
   z-index: 1;
   display: block;
-  max-width: 78%;
+  max-width: 92%;
   margin: 0 auto;
+  text-align: justify;
+  text-justify: inter-word;
   overflow: hidden;
   opacity: 0;
   clip-path: inset(0 100% 0 0);
   transform: translateY(4px);
-  text-align: center;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .scene05-pressure.is-visible .scene05-quote__text {
@@ -524,7 +531,7 @@
     opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
   transition-delay: var(--scene05-reveal-delay, 0ms);
-  }
+}
 
 .scene05-pressure.is-visible .scene05-reveal {
   opacity: 1;
@@ -684,6 +691,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .scene05-reveal,
   .scene05-pressure.is-visible .scene05-reveal {
     opacity: 1 !important;
