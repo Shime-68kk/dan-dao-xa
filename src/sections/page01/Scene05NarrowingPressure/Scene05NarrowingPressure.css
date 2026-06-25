@@ -34,6 +34,7 @@
   box-sizing: border-box;
   transform: translateX(-50%) scale(var(--scene05-scale, 1));
   transform-origin: top center;
+  --scene05-panel-offset: 93px;
 }
 
 .scene05-hero {
@@ -46,7 +47,7 @@
   display: block;
   width: 900px;
   height: auto;
-  margin-left: 10px;
+  margin-left: var(--scene05-panel-offset);
   filter: drop-shadow(0 9px 12px rgba(0, 0, 0, 0.3));
   pointer-events: none;
   user-select: none;
@@ -54,7 +55,7 @@
 
 .scene05-hero__intro {
   width: 730px;
-  margin: 18px 0 0 14px;
+  margin: 18px 0 0 calc(var(--scene05-panel-offset) + 4px);
   color: rgba(255, 245, 232, 0.96);
   font-family: "Courier New", Courier, monospace;
   font-size: 15.6px;
@@ -96,7 +97,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   max-width: 890px;
-  margin: -12px auto 34px;
+  margin: -12px 0 34px 10px;
   overflow: hidden;
   border: 1.5px solid #b5814d;
   border-radius: 8px;

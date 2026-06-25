@@ -19,7 +19,7 @@ import scene05QuoteFrame from "../../../assets/page01/scene05/scene05-quote-fram
 import scene05Title from "../../../assets/page01/scene05/scene05-title-cropped.png";
 import "./Scene05NarrowingPressure.css";
 
-const SCENE05_WIDTH = 1366;
+const SCENE05_WIDTH = 1420;
 
 const TOP_INDICATORS = [
   { icon: TrendingDown, lines: ["Thị trường", "thu hẹp"] },
@@ -158,7 +158,7 @@ export default function Scene05NarrowingPressure() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
-    
+
     // Kiểm tra ngay sau khi mount và sau 500ms để đảm bảo layout và scale đã ổn định
     handleScroll();
     const timer = setTimeout(handleScroll, 500);
@@ -182,131 +182,131 @@ export default function Scene05NarrowingPressure() {
     >
       <div className="scene05__scale-shell">
         <div ref={artboardRef} className="scene05__artboard">
-        <header className="scene05-hero">
-          <img
-            className="scene05-hero__title scene05-reveal scene05-reveal--hero-title"
-            src={scene05Title}
-            alt="Khi thanh âm cũ không còn chỗ đứng"
-            loading="lazy"
-            decoding="async"
-          />
-          <p className="scene05-hero__intro scene05-reveal scene05-reveal--hero-intro">
-            Sự thu hẹp của làng nghề Đào Xá không phải là kết quả của một nguyên nhân đơn lẻ mà là hệ quả
-            của nhiều thay đổi diễn ra đồng thời trong đời sống kinh tế, văn hóa và xã hội.
-          </p>
-          <img
-            className="scene05-hero__dan scene05-reveal scene05-reveal--hero-dan"
-            src={scene05Dan}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          />
-        </header>
+          <header className="scene05-hero">
+            <img
+              className="scene05-hero__title scene05-reveal scene05-reveal--hero-title"
+              src={scene05Title}
+              alt="Khi thanh âm cũ không còn chỗ đứng"
+              loading="lazy"
+              decoding="async"
+            />
+            <p className="scene05-hero__intro scene05-reveal scene05-reveal--hero-intro">
+              Sự thu hẹp của làng nghề Đào Xá không phải là kết quả của một nguyên nhân đơn lẻ mà là hệ quả
+              của nhiều thay đổi diễn ra đồng thời trong đời sống kinh tế, văn hóa và xã hội.
+            </p>
+            <img
+              className="scene05-hero__dan scene05-reveal scene05-reveal--hero-dan"
+              src={scene05Dan}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+          </header>
 
-        <div className="scene05-panel scene05-reveal scene05-reveal--panel">
-          <div className="scene05-indicators scene05-reveal scene05-reveal--indicators" aria-label="Các chỉ báo thu hẹp">
-            {TOP_INDICATORS.map(({ icon: Icon, lines }) => (
-              <div className="scene05-indicator" key={lines.join("-")}>
-                <Icon className="scene05-indicator__icon" size={42} strokeWidth={3} aria-hidden="true" />
-                <span className="scene05-indicator__text">{renderLines(lines)}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="scene05-section-heading">
-            <span aria-hidden="true" />
-            <h2>4 ÁP LỰC THU HẸP</h2>
-            <span aria-hidden="true" />
-          </div>
-
-          <div className="scene05-pressure-grid">
-            {PRESSURE_CARDS.map(({ number, icon: Icon, title, body, pills }, index) => (
-              <article className={`scene05-pressure-card scene05-reveal scene05-reveal--card-${index + 1}`} key={number}>
-                <div className="scene05-pressure-card__top">
-                  <strong>{number}</strong>
-                  <h3>{renderLines(title)}</h3>
-                </div>
-                <div className="scene05-pressure-card__body">
-                  <span className="scene05-pressure-card__icon" aria-hidden="true">
-                    <Icon size={30} strokeWidth={2.15} />
-                  </span>
-                  <p>{body}</p>
-                </div>
-                <div className="scene05-pressure-card__pills">
-                  {pills.map((pill) => (
-                    <span key={pill}>{pill}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <section className="scene05-comparison scene05-reveal scene05-reveal--comparison" aria-labelledby="scene05-comparison-title">
-            <div className="scene05-section-heading scene05-section-heading--comparison">
-              <span aria-hidden="true" />
-              <h2 id="scene05-comparison-title">SO SÁNH LỰA CHỌN VIỆC LÀM</h2>
-              <span aria-hidden="true" />
-            </div>
-
-            <div className="scene05-comparison__headers" aria-hidden="true">
-              <strong>Nghề làm đàn Đào Xá</strong>
-              <strong>Tiêu chí</strong>
-              <strong>Làm việc tại Khu công nghiệp</strong>
-            </div>
-
-            <div className="scene05-comparison__table">
-              {COMPARISON_ROWS.map((row) => (
-                <div className="scene05-comparison__row" key={Array.isArray(row.criteria) ? row.criteria.join(" ") : row.criteria}>
-                  <p>{renderLines(row.craft)}</p>
-                  <strong>{renderLines(row.criteria)}</strong>
-                  <p>{renderLines(row.factory)}</p>
+          <div className="scene05-panel scene05-reveal scene05-reveal--panel">
+            <div className="scene05-indicators scene05-reveal scene05-reveal--indicators" aria-label="Các chỉ báo thu hẹp">
+              {TOP_INDICATORS.map(({ icon: Icon, lines }) => (
+                <div className="scene05-indicator" key={lines.join("-")}>
+                  <Icon className="scene05-indicator__icon" size={42} strokeWidth={3} aria-hidden="true" />
+                  <span className="scene05-indicator__text">{renderLines(lines)}</span>
                 </div>
               ))}
             </div>
-          </section>
 
-          <div className="scene05-stats scene05-reveal scene05-reveal--stats">
-            {STATS.map(({ icon: Icon, value, suffix, note }) => (
-              <div className="scene05-stat" key={`${value}-${suffix}`}>
-                <span className="scene05-stat__icon" aria-hidden="true">
-                  <Icon size={36} strokeWidth={2.1} />
-                </span>
-                <strong>{value}</strong>
-                <span className="scene05-stat__suffix">{suffix}</span>
-                <p>{note}</p>
-              </div>
-            ))}
-          </div>
-
-          <section className="scene05-insight scene05-reveal scene05-reveal--insight" aria-label="Rào cản lớn">
-            <div className="scene05-insight__seal" aria-hidden="true">
-              <Scale size={34} strokeWidth={1.7} />
-              <strong>RÀO CẢN LỚN</strong>
-              <span>khiến nghề làm đàn khó thu hút lao động trẻ</span>
+            <div className="scene05-section-heading">
+              <span aria-hidden="true" />
+              <h2>4 ÁP LỰC THU HẸP</h2>
+              <span aria-hidden="true" />
             </div>
-            <p>
-              Sự chênh lệch về thời gian đào tạo và khả năng tạo thu nhập khiến nghề làm đàn ngày càng khó
-              thu hút lao động trẻ. Trong khi nhiều ngành nghề mới mang lại cơ hội việc làm nhanh chóng và
-              nguồn thu nhập ổn định, nghề chế tác nhạc cụ vẫn đòi hỏi quá trình học hỏi kéo dài trước khi
-              người học có thể tự đứng nghề.
-            </p>
-          </section>
 
-          <blockquote
-            ref={quoteRef}
-            className={`scene05-quote${quoteVisible ? " is-quote-visible" : ""}`}
-            style={{ "--scene05-quote-frame": `url(${scene05QuoteFrame})` }}
-          >
-            <span className="scene05-quote__text">
-              Bởi lẽ, đây là một nghề thủ công phức tạp, gắn với chuỗi công đoạn đòi hỏi kỹ thuật cao và sự
-              tích lũy kinh nghiệm qua thời gian. Đằng sau mỗi cây đàn hoàn thiện là hàng chục công đoạn chế
-              tác thủ công cùng những kỹ năng được tích lũy qua nhiều thế hệ. Chính quy trình ấy không chỉ tạo
-              nên chất lượng âm thanh đặc trưng của nhạc cụ Đào Xá mà còn phản ánh những giá trị nghề nghiệp
-              đã được gìn giữ suốt hơn hai thế kỷ tồn tại của làng nghề.
-            </span>
-          </blockquote>
-        </div>
+            <div className="scene05-pressure-grid">
+              {PRESSURE_CARDS.map(({ number, icon: Icon, title, body, pills }, index) => (
+                <article className={`scene05-pressure-card scene05-reveal scene05-reveal--card-${index + 1}`} key={number}>
+                  <div className="scene05-pressure-card__top">
+                    <strong>{number}</strong>
+                    <h3>{renderLines(title)}</h3>
+                  </div>
+                  <div className="scene05-pressure-card__body">
+                    <span className="scene05-pressure-card__icon" aria-hidden="true">
+                      <Icon size={30} strokeWidth={2.15} />
+                    </span>
+                    <p>{body}</p>
+                  </div>
+                  <div className="scene05-pressure-card__pills">
+                    {pills.map((pill) => (
+                      <span key={pill}>{pill}</span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <section className="scene05-comparison scene05-reveal scene05-reveal--comparison" aria-labelledby="scene05-comparison-title">
+              <div className="scene05-section-heading scene05-section-heading--comparison">
+                <span aria-hidden="true" />
+                <h2 id="scene05-comparison-title">SO SÁNH LỰA CHỌN VIỆC LÀM</h2>
+                <span aria-hidden="true" />
+              </div>
+
+              <div className="scene05-comparison__headers" aria-hidden="true">
+                <strong>Nghề làm đàn Đào Xá</strong>
+                <strong>Tiêu chí</strong>
+                <strong>Làm việc tại Khu công nghiệp</strong>
+              </div>
+
+              <div className="scene05-comparison__table">
+                {COMPARISON_ROWS.map((row) => (
+                  <div className="scene05-comparison__row" key={Array.isArray(row.criteria) ? row.criteria.join(" ") : row.criteria}>
+                    <p>{renderLines(row.craft)}</p>
+                    <strong>{renderLines(row.criteria)}</strong>
+                    <p>{renderLines(row.factory)}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className="scene05-stats scene05-reveal scene05-reveal--stats">
+              {STATS.map(({ icon: Icon, value, suffix, note }) => (
+                <div className="scene05-stat" key={`${value}-${suffix}`}>
+                  <span className="scene05-stat__icon" aria-hidden="true">
+                    <Icon size={36} strokeWidth={2.1} />
+                  </span>
+                  <strong>{value}</strong>
+                  <span className="scene05-stat__suffix">{suffix}</span>
+                  <p>{note}</p>
+                </div>
+              ))}
+            </div>
+
+            <section className="scene05-insight scene05-reveal scene05-reveal--insight" aria-label="Rào cản lớn">
+              <div className="scene05-insight__seal" aria-hidden="true">
+                <Scale size={34} strokeWidth={1.7} />
+                <strong>RÀO CẢN LỚN</strong>
+                <span>khiến nghề làm đàn khó thu hút lao động trẻ</span>
+              </div>
+              <p>
+                Sự chênh lệch về thời gian đào tạo và khả năng tạo thu nhập khiến nghề làm đàn ngày càng khó
+                thu hút lao động trẻ. Trong khi nhiều ngành nghề mới mang lại cơ hội việc làm nhanh chóng và
+                nguồn thu nhập ổn định, nghề chế tác nhạc cụ vẫn đòi hỏi quá trình học hỏi kéo dài trước khi
+                người học có thể tự đứng nghề.
+              </p>
+            </section>
+
+            <blockquote
+              ref={quoteRef}
+              className={`scene05-quote${quoteVisible ? " is-quote-visible" : ""}`}
+              style={{ "--scene05-quote-frame": `url(${scene05QuoteFrame})` }}
+            >
+              <span className="scene05-quote__text">
+                Bởi lẽ, đây là một nghề thủ công phức tạp, gắn với chuỗi công đoạn đòi hỏi kỹ thuật cao và sự
+                tích lũy kinh nghiệm qua thời gian. Đằng sau mỗi cây đàn hoàn thiện là hàng chục công đoạn chế
+                tác thủ công cùng những kỹ năng được tích lũy qua nhiều thế hệ. Chính quy trình ấy không chỉ tạo
+                nên chất lượng âm thanh đặc trưng của nhạc cụ Đào Xá mà còn phản ánh những giá trị nghề nghiệp
+                đã được gìn giữ suốt hơn hai thế kỷ tồn tại của làng nghề.
+              </span>
+            </blockquote>
+          </div>
         </div>
       </div>
     </section>
