@@ -141,6 +141,7 @@
   font-family: var(--font-client-courier, "Client Courier New", "Courier New", monospace);
   font-size: 14.3px;
   line-height: 1.5;
+  font-weight: 550;
   color: #f3eee4;
   text-align: justify;
   text-justify: inter-word;
@@ -149,9 +150,9 @@
 }
 
 .scene08__intro {
-  left: 145px;
+  left: 105px;
   top: 260px;
-  width: 490px;
+  width: 500px;
   text-indent: 34px;
 }
 
@@ -160,13 +161,13 @@
   top: 0;
   right: 0;
   z-index: 2;
-  width: 1080px;
+  width: 1200px;
   max-width: none;
-  height: 560px;
+  height: 610px;
   object-fit: cover;
   object-position: center center;
-  opacity: 0.86;
-  filter: brightness(0.82) saturate(0.9) contrast(0.94);
+  opacity: 0.99;
+  filter: brightness(1.04) saturate(0.96) contrast(0.97);
 }
 
 .scene08__artisan-staff {
@@ -212,7 +213,7 @@
 }
 
 .scene08__label--place {
-  left: 500px;
+  left: 610px;
   top: 462px;
   font-size: 28.8px;
   transform: rotate(-9deg);
@@ -229,10 +230,10 @@
 
 .scene08__artist-lockup {
   position: absolute;
-  left: 690px;
-  top: 390px;
+  left: 740px;
+  top: 470px;
   z-index: 5;
-  width: 520px;
+  width: 630px;
   height: auto;
   pointer-events: none;
 }
@@ -333,7 +334,7 @@
 .scene08__lower-bio {
   left: 140px;
   top: 1329px;
-  width: 620px;
+  width: 660px;
   line-height: 1.55;
 }
 

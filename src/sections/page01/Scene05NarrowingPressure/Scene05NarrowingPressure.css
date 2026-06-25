@@ -57,10 +57,10 @@
 
 .scene05-hero__dan {
   position: absolute;
-  right: clamp(-110px, -6vw, -72px);
-  top: clamp(24px, 3vw, 46px);
+  right: clamp(-320px, -18vw, -270px);
+  top: clamp(-15px, -1vw, 10px);
   z-index: 3;
-  width: clamp(620px, 47vw, 650px);
+  width: clamp(940px, 68vw, 1000px);
   height: auto;
   filter: contrast(1.06) saturate(1.04) drop-shadow(0 8px 7px rgba(0, 0, 0, 0.34));
   pointer-events: none;

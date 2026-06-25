@@ -39,7 +39,7 @@
 
 .scene12__bg {
   z-index: 0;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .scene12__shade {
@@ -178,7 +178,7 @@
 .scene12__middle-heading {
   position: absolute;
   left: 746px;
-  top: 430px;
+  top: 405px;
   z-index: 4;
   display: flex;
   align-items: baseline;
@@ -216,7 +216,7 @@
 .scene12__bottom-copy {
   position: absolute;
   left: 648px;
-  top: 492px;
+  top: 445px;
   z-index: 4;
   width: 584px;
   min-height: 126px;
