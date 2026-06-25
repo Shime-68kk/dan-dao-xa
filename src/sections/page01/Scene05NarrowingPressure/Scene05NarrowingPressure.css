@@ -82,10 +82,10 @@
 .scene05-panel {
   position: relative;
   z-index: 2;
-  max-width: 1346px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 50px 30px 64px;
-  border-radius: 58px;
+  padding: 42px 28px 56px;
+  border-radius: 48px;
   background: #f5efe4;
   box-shadow: 0 22px 44px rgba(0, 0, 0, 0.2);
 }
@@ -96,7 +96,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   max-width: 890px;
-  margin: -12px 0 34px 10px;
+  margin: -12px auto 34px;
   overflow: hidden;
   border: 1.5px solid #b5814d;
   border-radius: 8px;
