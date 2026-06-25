@@ -18,13 +18,13 @@
 
 .scene14__artboard {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
   width: 1366px;
   height: 768px;
   overflow: hidden;
-  transform: scale(var(--scene14-scale, 1));
-  transform-origin: top left;
+  transform: translateX(-50%) scale(var(--scene14-scale, 1));
+  transform-origin: top center;
 }
 
 .scene14__bg {

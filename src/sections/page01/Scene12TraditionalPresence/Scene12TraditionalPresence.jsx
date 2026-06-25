@@ -1,4 +1,5 @@
 import { Maximize2, Pause, Play, X } from "lucide-react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import { useCallback, useEffect, useRef, useState } from "react";
 import scene12Bg from "../../../assets/page01/scene12/scene12-bg.png";
 import scene12Poster from "../../../assets/page01/scene12/scene12-video-cover.jpg";
@@ -19,8 +20,8 @@ function canPlayMp4() {
   const video = document.createElement("video");
   return Boolean(
     video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') ||
-      video.canPlayType('video/mp4; codecs="avc1.4D401E, mp4a.40.2"') ||
-      video.canPlayType("video/mp4")
+    video.canPlayType('video/mp4; codecs="avc1.4D401E, mp4a.40.2"') ||
+    video.canPlayType("video/mp4")
   );
 }
 
@@ -32,12 +33,8 @@ export default function Scene12TraditionalPresence() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isUnsupported, setIsUnsupported] = useState(false);
-  const [scale, setScale] = useState(() => {
-    if (typeof window === "undefined") return 1;
-    return document.documentElement.clientWidth / SCENE12_WIDTH;
-  });
-
-  const closeModal = useCallback(() => {
+  const scale = useWidthScale(SCENE12_WIDTH);
+const closeModal = useCallback(() => {
     const video = videoRef.current;
     if (video) {
       video.pause();
@@ -45,27 +42,6 @@ export default function Scene12TraditionalPresence() {
     }
     setIsPlaying(false);
     setIsModalOpen(false);
-  }, []);
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateScale = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        setScale(document.documentElement.clientWidth / SCENE12_WIDTH);
-      });
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    window.addEventListener("orientationchange", updateScale);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateScale);
-      window.removeEventListener("orientationchange", updateScale);
-    };
   }, []);
 
   useEffect(() => {

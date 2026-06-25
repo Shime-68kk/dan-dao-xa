@@ -18,13 +18,13 @@
 
 .scene07__artboard {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
   width: 1366px;
   height: 882px;
   overflow: hidden;
-  transform: scale(var(--scene07-scale, 1));
-  transform-origin: top left;
+  transform: translateX(-50%) scale(var(--scene07-scale, 1));
+  transform-origin: top center;
 }
 
 .scene07__bg {
@@ -388,6 +388,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .scene07-reveal,
   .scene07__bottom-panel.scene07-reveal,
   .scene07__bottom-copy.scene07-reveal {

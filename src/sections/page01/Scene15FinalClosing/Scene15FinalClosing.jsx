@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import scene15Bg from "../../../assets/page01/scene15/scene15-bg.png";
 import finalFooterOverlay from "../../../assets/page01/scene15/final-footer-overlay.png";
 import scene15Title from "../../../assets/page01/scene15/scene15-title.png";
@@ -14,31 +15,7 @@ const closingCopy =
 export default function Scene15FinalClosing() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [scale, setScale] = useState(() => {
-    if (typeof window === "undefined") return 1;
-    return document.documentElement.clientWidth / SCENE15_WIDTH;
-  });
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateScale = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        setScale(document.documentElement.clientWidth / SCENE15_WIDTH);
-      });
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    window.addEventListener("orientationchange", updateScale);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateScale);
-      window.removeEventListener("orientationchange", updateScale);
-    };
-  }, []);
+  const scale = useWidthScale(SCENE15_WIDTH);
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -92,8 +69,8 @@ export default function Scene15FinalClosing() {
                   aria-label="Mở Facebook Bách Nghệ Ký"
                 >
                   <svg viewBox="0 0 24 24" width="40" height="40">
-                    <circle cx="12" cy="12" r="12" fill="#1877f2"/>
-                    <path d="M14 12h-2v8H9v-8H7V9.5h2v-2c0-2 1.2-3 3-3 .9 0 1.6.1 1.8.1v2.1h-1.2c-1 0-1.2.5-1.2 1.2v1.6h2.4L14 12z" fill="#ffffff"/>
+                    <circle cx="12" cy="12" r="12" fill="#1877f2" />
+                    <path d="M14 12h-2v8H9v-8H7V9.5h2v-2c0-2 1.2-3 3-3 .9 0 1.6.1 1.8.1v2.1h-1.2c-1 0-1.2.5-1.2 1.2v1.6h2.4L14 12z" fill="#ffffff" />
                   </svg>
                 </a>
               </div>

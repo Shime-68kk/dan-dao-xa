@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import scene14Bg from "../../../assets/page01/scene14/scene14-bg.png";
 import "./Scene14FutureContinuation.css";
 
@@ -14,31 +15,7 @@ const secondCopy =
 export default function Scene14FutureContinuation() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [scale, setScale] = useState(() => {
-    if (typeof window === "undefined") return 1;
-    return document.documentElement.clientWidth / SCENE14_WIDTH;
-  });
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateScale = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        setScale(document.documentElement.clientWidth / SCENE14_WIDTH);
-      });
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    window.addEventListener("orientationchange", updateScale);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateScale);
-      window.removeEventListener("orientationchange", updateScale);
-    };
-  }, []);
+  const scale = useWidthScale(SCENE14_WIDTH);
 
   useEffect(() => {
     const node = sectionRef.current;

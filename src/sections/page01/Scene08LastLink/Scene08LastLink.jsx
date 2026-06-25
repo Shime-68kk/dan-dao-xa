@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import topRightImage from "../../../assets/page01/scene08/scene08-top-right-image.png";
 import artisanStaff from "../../../assets/page01/scene08/scene08-artisan-staff.png";
 import artistLockup from "../../../assets/page01/scene08/artist-dao-anh-tuan-title.png";
@@ -28,31 +29,7 @@ export default function Scene08LastLink() {
   const showStaffDebug =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("debugScene08Staff") === "1";
-  const [scale, setScale] = useState(() => {
-    if (typeof window === "undefined") return 1;
-    return document.documentElement.clientWidth / SCENE08_WIDTH;
-  });
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateScale = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        setScale(document.documentElement.clientWidth / SCENE08_WIDTH);
-      });
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    window.addEventListener("orientationchange", updateScale);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateScale);
-      window.removeEventListener("orientationchange", updateScale);
-    };
-  }, []);
+  const scale = useWidthScale(SCENE08_WIDTH);
 
   useEffect(() => {
     const node = sectionRef.current;

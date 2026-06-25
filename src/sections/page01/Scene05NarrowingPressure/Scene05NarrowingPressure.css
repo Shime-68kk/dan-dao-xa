@@ -1,9 +1,12 @@
 .scene05-pressure {
   position: relative;
   width: 100%;
+  min-height: var(--scene05-rendered-height);
+  height: var(--scene05-rendered-height);
   margin: 0;
   padding: 0;
-  overflow-x: clip;
+  overflow: hidden;
+  isolation: isolate;
   color: #23130d;
   background:
     linear-gradient(rgba(42, 19, 10, 0.08), rgba(42, 19, 10, 0.08)),
@@ -15,13 +18,22 @@
   -webkit-text-stroke: 0.15px currentColor;
 }
 
-.scene05-stage {
+.scene05__scale-shell {
   position: relative;
-  width: min(100%, 1366px);
-  margin: 0 auto;
-  padding: 48px clamp(4px, 0.6vw, 10px) 72px;
-  box-sizing: border-box;
+  width: 100%;
+  height: var(--scene05-rendered-height);
   overflow: hidden;
+}
+
+.scene05__artboard {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1366px;
+  padding: 48px 10px 72px;
+  box-sizing: border-box;
+  transform: translateX(-50%) scale(var(--scene05-scale, 1));
+  transform-origin: top center;
 }
 
 .scene05-hero {
@@ -32,7 +44,7 @@
 
 .scene05-hero__title {
   display: block;
-  width: min(900px, 76vw);
+  width: 900px;
   height: auto;
   margin-left: 10px;
   filter: drop-shadow(0 9px 12px rgba(0, 0, 0, 0.3));
@@ -41,7 +53,7 @@
 }
 
 .scene05-hero__intro {
-  width: min(730px, 60vw);
+  width: 730px;
   margin: 18px 0 0 14px;
   color: rgba(255, 245, 232, 0.96);
   font-family: "Courier New", Courier, monospace;
@@ -57,10 +69,10 @@
 
 .scene05-hero__dan {
   position: absolute;
-  right: clamp(-320px, -18vw, -270px);
-  top: clamp(-15px, -1vw, 10px);
+  right: -290px;
+  top: -5px;
   z-index: 3;
-  width: clamp(940px, 68vw, 1000px);
+  width: 980px;
   height: auto;
   filter: contrast(1.06) saturate(1.04) drop-shadow(0 8px 7px rgba(0, 0, 0, 0.34));
   pointer-events: none;
@@ -70,7 +82,7 @@
 .scene05-panel {
   position: relative;
   z-index: 2;
-  max-width: min(1460px, calc(100vw - 8px));
+  max-width: 1346px;
   margin: 0 auto;
   padding: 50px 30px 64px;
   border-radius: 58px;
@@ -128,7 +140,7 @@
   grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
   align-items: center;
   gap: 20px;
-  width: min(720px, 78%);
+  width: 720px;
   margin: 0 auto 22px;
 }
 
@@ -590,105 +602,7 @@
   --scene05-reveal-delay: 1460ms;
 }
 
-@media (max-width: 900px) {
-  .scene05-stage {
-    padding: 44px 18px 54px;
-  }
 
-  .scene05-hero {
-    min-height: 320px;
-  }
-
-  .scene05-hero__title {
-    width: min(650px, 92vw);
-    margin: 0 auto;
-  }
-
-  .scene05-hero__intro {
-    width: min(640px, 86vw);
-    margin: 14px auto 0;
-    font-size: 13.8px;
-  }
-
-  .scene05-hero__dan {
-    display: none;
-  }
-
-  .scene05-panel {
-    padding: 34px 18px 46px;
-    border-radius: 38px;
-  }
-
-  .scene05-indicators,
-  .scene05-pressure-grid,
-  .scene05-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .scene05-indicators {
-    max-width: 520px;
-    margin: 0 auto 28px;
-  }
-
-  .scene05-indicator {
-    border-right: 0;
-    border-bottom: 1.5px solid #b5814d;
-  }
-
-  .scene05-indicator:last-child {
-    border-bottom: 0;
-  }
-
-  .scene05-section-heading {
-    grid-template-columns: 1fr;
-    width: 100%;
-    gap: 8px;
-  }
-
-  .scene05-section-heading span {
-    display: none;
-  }
-
-  .scene05-section-heading h2,
-  .scene05-section-heading--comparison h2 {
-    font-size: 24px;
-  }
-
-  .scene05-pressure-card {
-    min-height: 0;
-  }
-
-  .scene05-comparison__headers,
-  .scene05-comparison__row {
-    grid-template-columns: 1fr;
-  }
-
-  .scene05-comparison__headers strong,
-  .scene05-comparison__headers strong:nth-child(3) {
-    clip-path: none;
-  }
-
-  .scene05-stat {
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  .scene05-insight {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    padding: 18px;
-  }
-
-  .scene05-quote {
-    min-height: 210px;
-    padding: 36px 28px;
-    font-size: 13.5px;
-  }
-
-  .scene05-quote__text {
-    max-width: 84%;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import { useElementInView } from "../../../hooks/useElementInView.js";
 import titleImage from "../../../assets/page01/scene06/scene06-title-trimmed.png";
 import "./Scene06CraftJourneyIntro.css";
@@ -14,37 +15,11 @@ const copySegments = [
 ];
 
 export default function Scene06CraftJourneyIntro() {
-  const [frameWidth, setFrameWidth] = useState(() =>
-    typeof window === "undefined" ? BASE_WIDTH : window.innerWidth
-  );
+  const scale = useWidthScale(BASE_WIDTH);
   const [sectionRef, isVisible] = useElementInView({
     threshold: 0.16,
     rootMargin: "0px 0px -12% 0px",
   });
-  const scale = frameWidth / BASE_WIDTH;
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateFrameWidth = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        const scene05Frame = document.querySelector(".scene05-visual-wrap");
-        const width = scene05Frame?.getBoundingClientRect().width || window.innerWidth;
-        setFrameWidth(width);
-      });
-    };
-
-    updateFrameWidth();
-    window.addEventListener("resize", updateFrameWidth);
-    window.addEventListener("orientationchange", updateFrameWidth);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateFrameWidth);
-      window.removeEventListener("orientationchange", updateFrameWidth);
-    };
-  }, []);
 
   return (
     <section

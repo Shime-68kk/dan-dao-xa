@@ -18,13 +18,13 @@
 
 .scene08__artboard {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
   width: 1366px;
   height: 1774px;
   overflow: hidden;
-  transform: scale(var(--scene08-scale, 1));
-  transform-origin: top left;
+  transform: translateX(-50%) scale(var(--scene08-scale, 1));
+  transform-origin: top center;
   background-image: url("../../../assets/page01/scene08/scene08-bg.png");
   background-position: top center;
   background-repeat: repeat-y;
@@ -89,14 +89,12 @@
 
 .scene08__title span {
   display: block;
-  background: linear-gradient(
-    125deg,
-    #fff0c9 0%,
-    #ffd08e 22%,
-    #f3a35c 46%,
-    #a5532c 72%,
-    #ffd293 100%
-  );
+  background: linear-gradient(125deg,
+      #fff0c9 0%,
+      #ffd08e 22%,
+      #f3a35c 46%,
+      #a5532c 72%,
+      #ffd293 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -191,14 +189,12 @@
     0 1px 0 rgba(255, 232, 184, 0.45),
     0 3px 0 rgba(120, 52, 23, 0.9),
     0 6px 10px rgba(0, 0, 0, 0.28);
-  background: linear-gradient(
-    125deg,
-    #fff0c9 0%,
-    #ffc17e 28%,
-    #ec944f 52%,
-    #9d4c28 76%,
-    #ffd090 100%
-  );
+  background: linear-gradient(125deg,
+      #fff0c9 0%,
+      #ffc17e 28%,
+      #ec944f 52%,
+      #9d4c28 76%,
+      #ffd090 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -559,6 +555,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .scene08-reveal,
   .scene08__staff-quote span {
     animation: none !important;

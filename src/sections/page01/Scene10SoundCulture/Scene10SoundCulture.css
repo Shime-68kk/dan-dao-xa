@@ -18,13 +18,13 @@
 
 .scene10__artboard {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
   width: 1366px;
   height: 869px;
   overflow: hidden;
-  transform: scale(var(--scene10-scale, 1));
-  transform-origin: top left;
+  transform: translateX(-50%) scale(var(--scene10-scale, 1));
+  transform-origin: top center;
 }
 
 .scene10__bg {
@@ -95,13 +95,11 @@
   font-weight: 800;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  background: linear-gradient(
-    180deg,
-    #fff6e3 0%,
-    #f6d49f 28%,
-    #dca560 62%,
-    #8b4c2b 100%
-  );
+  background: linear-gradient(180deg,
+      #fff6e3 0%,
+      #f6d49f 28%,
+      #dca560 62%,
+      #8b4c2b 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

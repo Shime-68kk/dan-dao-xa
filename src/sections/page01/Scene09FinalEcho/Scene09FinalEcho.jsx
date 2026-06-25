@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import scene09Bg from "../../../../slide 9/nền.png";
 import icon20Years from "../../../../slide 9/12.png";
 import iconOneHousehold from "../../../../slide 9/13.png";
@@ -12,31 +13,7 @@ const SCENE09_HEIGHT = 869;
 export default function Scene09FinalEcho() {
   const sectionRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
-  const [scale, setScale] = useState(() => {
-    if (typeof window === "undefined") return 1;
-    return document.documentElement.clientWidth / SCENE09_WIDTH;
-  });
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateScale = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        setScale(document.documentElement.clientWidth / SCENE09_WIDTH);
-      });
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    window.addEventListener("orientationchange", updateScale);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateScale);
-      window.removeEventListener("orientationchange", updateScale);
-    };
-  }, []);
+  const scale = useWidthScale(SCENE09_WIDTH);
 
   useEffect(() => {
     const node = sectionRef.current;

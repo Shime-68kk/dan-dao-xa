@@ -18,13 +18,13 @@
 
 .scene12__artboard {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
   width: 1366px;
   height: 869px;
   overflow: hidden;
-  transform: scale(var(--scene12-scale, 1));
-  transform-origin: top left;
+  transform: translateX(-50%) scale(var(--scene12-scale, 1));
+  transform-origin: top center;
 }
 
 .scene12__bg,
@@ -415,6 +415,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .scene12-reveal,
   .scene12__video-play {
     transform: none !important;

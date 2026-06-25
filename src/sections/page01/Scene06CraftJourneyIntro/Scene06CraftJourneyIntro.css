@@ -22,13 +22,13 @@
 
 .scene06-intro__stage {
   position: absolute;
-  left: 0;
+  left: 50%;
   top: 0;
   width: calc(1366px * var(--scene06-scale, 1));
   height: calc(768px * var(--scene06-scale, 1));
   overflow: hidden;
-  transform: none;
-  transform-origin: top left;
+  transform: translateX(-50%);
+  transform-origin: top center;
 }
 
 .scene06-intro__title {
@@ -124,6 +124,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .scene06-intro__title,
   .scene06-intro__copy-segment {
     opacity: 1 !important;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import scene07Bg from "../../../assets/page01/scene07/scene07-bg.png";
 import woodElement from "../../../assets/page01/scene07/scene07-element-wood.png";
 import clockElement from "../../../assets/page01/scene07/scene07-element-clock.png";
@@ -11,31 +12,7 @@ const SCENE07_HEIGHT = 882;
 export default function Scene07WoodResonance() {
   const sectionRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
-  const [scale, setScale] = useState(() => {
-    if (typeof window === "undefined") return 1;
-    return document.documentElement.clientWidth / SCENE07_WIDTH;
-  });
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateScale = () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => {
-        setScale(document.documentElement.clientWidth / SCENE07_WIDTH);
-      });
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    window.addEventListener("orientationchange", updateScale);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("resize", updateScale);
-      window.removeEventListener("orientationchange", updateScale);
-    };
-  }, []);
+  const scale = useWidthScale(SCENE07_WIDTH);
 
   useEffect(() => {
     const node = sectionRef.current;

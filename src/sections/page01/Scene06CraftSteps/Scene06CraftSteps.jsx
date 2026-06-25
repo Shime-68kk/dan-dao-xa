@@ -276,11 +276,9 @@ function SceneStep({ step }) {
       </article>
 
       <aside
-        className={`scene06-steps__note${
-          step.noteVariant ? ` scene06-steps__note--${step.noteVariant}` : ""
-        }${isProcessStep ? " scene06-steps__note--process" : ""}${
-          isNaturalProcessStep ? " scene06-steps__note--process-main" : ""
-        } scene06-steps__note--step-${step.id.replace("b", "")}`}
+        className={`scene06-steps__note${step.noteVariant ? ` scene06-steps__note--${step.noteVariant}` : ""
+          }${isProcessStep ? " scene06-steps__note--process" : ""}${isNaturalProcessStep ? " scene06-steps__note--process-main" : ""
+          } scene06-steps__note--step-${step.id.replace("b", "")}`}
         style={{
           "--note-x": `${noteX}px`,
           "--note-y": `${noteY}px`,
@@ -306,9 +304,8 @@ function SceneStep({ step }) {
 function VerticalSceneTitle({ lines, ariaLabel, variant }) {
   return (
     <h2
-      className={`scene06-steps__title${
-        variant ? ` scene06-steps__title--${variant}` : ""
-      }`}
+      className={`scene06-steps__title${variant ? ` scene06-steps__title--${variant}` : ""
+        }`}
       aria-label={ariaLabel}
     >
       {lines.map((line) => (
@@ -379,10 +376,9 @@ export default function Scene06CraftSteps() {
     const updateFrameSize = () => {
       if (frame) window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
-        const scene05Frame = document.querySelector(".scene05-visual-wrap");
         const visualViewport = window.visualViewport;
         setFrameSize({
-          width: scene05Frame?.getBoundingClientRect().width || window.innerWidth,
+          width: window.innerWidth,
           height: visualViewport?.height || window.innerHeight,
         });
       });

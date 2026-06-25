@@ -13,10 +13,13 @@ import {
   UsersRound,
   WalletCards,
 } from "lucide-react";
+import { useWidthScale } from "../../../hooks/useWidthScale.js";
 import scene05Dan from "../../../assets/page01/scene05/scene05-dan.png";
 import scene05QuoteFrame from "../../../assets/page01/scene05/scene05-quote-frame.png";
 import scene05Title from "../../../assets/page01/scene05/scene05-title-cropped.png";
 import "./Scene05NarrowingPressure.css";
+
+const SCENE05_WIDTH = 1366;
 
 const TOP_INDICATORS = [
   { icon: TrendingDown, lines: ["Thị trường", "thu hẹp"] },
@@ -107,7 +110,21 @@ function renderLines(value) {
 
 export default function Scene05NarrowingPressure() {
   const sectionRef = useRef(null);
+  const artboardRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [contentHeight, setContentHeight] = useState(1800);
+  const scale = useWidthScale(SCENE05_WIDTH);
+
+  useEffect(() => {
+    const node = artboardRef.current;
+    if (!node) return undefined;
+
+    const ro = new ResizeObserver(([entry]) => {
+      setContentHeight(entry.contentRect.height);
+    });
+    ro.observe(node);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -117,7 +134,7 @@ export default function Scene05NarrowingPressure() {
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -8% 0px" }
     );
 
     observer.observe(node);
@@ -129,8 +146,13 @@ export default function Scene05NarrowingPressure() {
       ref={sectionRef}
       className={`scene05-pressure${isVisible ? " is-visible" : ""}`}
       aria-label="Khi thanh âm cũ không còn chỗ đứng"
+      style={{
+        "--scene05-scale": scale,
+        "--scene05-rendered-height": `${contentHeight * scale}px`,
+      }}
     >
-      <div className="scene05-stage">
+      <div className="scene05__scale-shell">
+        <div ref={artboardRef} className="scene05__artboard">
         <header className="scene05-hero">
           <img
             className="scene05-hero__title scene05-reveal scene05-reveal--hero-title"
@@ -254,6 +276,7 @@ export default function Scene05NarrowingPressure() {
               đã được gìn giữ suốt hơn hai thế kỷ tồn tại của làng nghề.
             </span>
           </blockquote>
+        </div>
         </div>
       </div>
     </section>
