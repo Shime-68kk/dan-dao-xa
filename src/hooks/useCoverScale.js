@@ -10,10 +10,30 @@ export function useCoverScale(width = 1366, height = 768) {
 
   useEffect(() => {
     let frame = 0;
+    let lastWidth = typeof window !== "undefined" ? window.innerWidth : 0;
 
     const update = () => {
       if (frame) window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(() => setScale(getScale()));
+      frame = window.requestAnimationFrame(() => {
+        const newWidth = window.innerWidth;
+        const visualViewport = window.visualViewport;
+        
+        // Kiểm tra xem người dùng có đang zoom bằng cử chỉ (pinch-to-zoom) hay không
+        const isZoomed = visualViewport && Math.abs(visualViewport.scale - 1) > 0.05;
+        if (isZoomed) {
+          // Bỏ qua cập nhật scale khi đang zoom để tránh re-render liên tục gây đơ/văng app
+          return;
+        }
+
+        // Trên thiết bị di động, chiều rộng màn hình thực tế không đổi khi cuộn (chỉ có thanh địa chỉ co giãn)
+        const isMobile = newWidth < 768 || (typeof window !== "undefined" && 'ontouchstart' in window);
+        if (isMobile && newWidth === lastWidth) {
+          return;
+        }
+
+        lastWidth = newWidth;
+        setScale(getScale());
+      });
     };
 
     update();

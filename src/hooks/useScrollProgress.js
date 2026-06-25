@@ -30,15 +30,22 @@ export function useScrollProgress(ref) {
       });
     };
 
+    const handleResize = () => {
+      const visualViewport = window.visualViewport;
+      const isZoomed = visualViewport && Math.abs(visualViewport.scale - 1) > 0.05;
+      if (isZoomed) return;
+      update();
+    };
+
     update();
     window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("resize", handleResize);
     window.addEventListener("orientationchange", update);
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", update);
     };
   }, [ref]);

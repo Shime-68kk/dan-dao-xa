@@ -229,10 +229,22 @@ export default function Scene11ModernAudience() {
 
   useEffect(() => {
     let frame = 0;
+    let lastWidth = typeof window !== "undefined" ? window.innerWidth : 0;
 
     const updateScale = () => {
       if (frame) window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
+        const visualViewport = window.visualViewport;
+        
+        // Bỏ qua cập nhật scale khi đang zoom
+        const isZoomed = visualViewport && Math.abs(visualViewport.scale - 1) > 0.05;
+        if (isZoomed) return;
+
+        const newWidth = window.innerWidth;
+        const isMobile = newWidth < 768 || (typeof window !== "undefined" && 'ontouchstart' in window);
+        if (isMobile && newWidth === lastWidth) return;
+
+        lastWidth = newWidth;
         setScale(getScene11Scale());
       });
     };
@@ -300,15 +312,22 @@ export default function Scene11ModernAudience() {
       });
     };
 
+    const handleResize = () => {
+      const visualViewport = window.visualViewport;
+      const isZoomed = visualViewport && Math.abs(visualViewport.scale - 1) > 0.05;
+      if (isZoomed) return;
+      updatePin();
+    };
+
     updatePin();
     window.addEventListener("scroll", updatePin, { passive: true });
-    window.addEventListener("resize", updatePin);
+    window.addEventListener("resize", handleResize);
     window.addEventListener("orientationchange", updatePin);
 
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", updatePin);
-      window.removeEventListener("resize", updatePin);
+      window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", updatePin);
     };
   }, [debugScene11Pin]);

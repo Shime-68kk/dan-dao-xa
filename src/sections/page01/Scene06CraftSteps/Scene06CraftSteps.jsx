@@ -468,7 +468,6 @@ export default function Scene06CraftSteps() {
         "--scene06-steps-scale": scale,
         "--scene06-stage-height": `${BASE_HEIGHT * scale}px`,
         "--scene06-steps-count": SCENE06_SCROLL_SPAN,
-        "--scene06-vh": `${frameSize.height}px`,
       }}
     >
       <div className="scene06-steps__sticky">
