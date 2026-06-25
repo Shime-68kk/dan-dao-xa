@@ -382,13 +382,21 @@ export default function Scene06CraftSteps() {
       if (frame) window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
         const visualViewport = window.visualViewport;
+        
+        // Kiểm tra xem người dùng có đang zoom bằng cử chỉ (pinch-to-zoom) hay không
+        const isZoomed = visualViewport && Math.abs(visualViewport.scale - 1) > 0.05;
+        if (isZoomed) {
+          // Bỏ qua cập nhật scale khi đang zoom để tránh kích hoạt re-render liên tục gây đơ/văng app
+          return;
+        }
+
         const newWidth = window.innerWidth;
-        const newHeight = visualViewport?.height || window.innerHeight;
+        const newHeight = window.innerHeight;
 
         setFrameSize((prev) => {
           // Trên thiết bị di động (chiều rộng < 768px), bỏ qua thay đổi chiều cao (do thanh địa chỉ ẩn/hiện)
           // để tránh kích thước slide liên tục bị tính toán lại gây giật lắc khi cuộn chuột.
-          const isMobile = newWidth < 768;
+          const isMobile = newWidth < 768 || (typeof window !== "undefined" && 'ontouchstart' in window);
           if (isMobile && prev.width === newWidth) {
             return prev;
           }
@@ -460,6 +468,7 @@ export default function Scene06CraftSteps() {
         "--scene06-steps-scale": scale,
         "--scene06-stage-height": `${BASE_HEIGHT * scale}px`,
         "--scene06-steps-count": SCENE06_SCROLL_SPAN,
+        "--scene06-vh": `${frameSize.height}px`,
       }}
     >
       <div className="scene06-steps__sticky">

@@ -1,10 +1,8 @@
 .scene06-steps {
   position: relative;
   width: 100%;
-  min-height: calc(var(--scene06-steps-count, 4) * 100vh);
-  min-height: calc(var(--scene06-steps-count, 4) * 100svh);
-  height: calc(var(--scene06-steps-count, 4) * 100vh);
-  height: calc(var(--scene06-steps-count, 4) * 100svh);
+  min-height: calc(var(--scene06-steps-count, 4) * var(--scene06-vh, 100vh));
+  height: calc(var(--scene06-steps-count, 4) * var(--scene06-vh, 100vh));
   margin: 0;
   overflow: visible;
   overflow-x: clip;
@@ -17,8 +15,7 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 100vh;
-  height: 100svh;
+  height: var(--scene06-vh, 100vh);
   overflow: hidden;
   z-index: 20;
   background: url("../../../assets/page01/scene06/steps/backgrounds/process-bg.png") center / cover no-repeat;
@@ -29,8 +26,7 @@
   display: grid;
   place-items: center;
   width: 100%;
-  height: 100vh;
-  height: 100svh;
+  height: var(--scene06-vh, 100vh);
   overflow: hidden;
   background: url("../../../assets/page01/scene06/steps/backgrounds/process-bg.png") center / cover no-repeat;
 }
@@ -620,18 +616,14 @@
 
 @media (max-width: 768px) {
   .scene06-steps {
-    min-height: calc(var(--scene06-steps-count, 4) * 100vh);
-    min-height: calc(var(--scene06-steps-count, 4) * 100svh);
-    height: calc(var(--scene06-steps-count, 4) * 100vh);
-    height: calc(var(--scene06-steps-count, 4) * 100svh);
+    min-height: calc(var(--scene06-steps-count, 4) * var(--scene06-vh, 100vh));
+    height: calc(var(--scene06-steps-count, 4) * var(--scene06-vh, 100vh));
   }
 
   .scene06-steps__sticky,
   .scene06-steps__viewport {
-    height: 100vh;
-    height: 100svh;
+    height: var(--scene06-vh, 100vh);
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) {
