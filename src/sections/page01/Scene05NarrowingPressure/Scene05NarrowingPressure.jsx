@@ -111,7 +111,9 @@ function renderLines(value) {
 export default function Scene05NarrowingPressure() {
   const sectionRef = useRef(null);
   const artboardRef = useRef(null);
+  const quoteRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [quoteVisible, setQuoteVisible] = useState(false);
   const [contentHeight, setContentHeight] = useState(1800);
   const scale = useWidthScale(SCENE05_WIDTH);
 
@@ -140,6 +142,32 @@ export default function Scene05NarrowingPressure() {
     observer.observe(node);
     return () => observer.disconnect();
   }, [isVisible]);
+
+  useEffect(() => {
+    const node = quoteRef.current;
+    if (!node) return undefined;
+
+    const handleScroll = () => {
+      const rect = node.getBoundingClientRect();
+      // Chỉ kích hoạt khi phần đỉnh của blockquote đi vào 78% chiều cao màn hình (tức là đã hiển thị rõ ràng trên viewport)
+      if (rect.top > 0 && rect.top < window.innerHeight * 0.78) {
+        setQuoteVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    
+    // Kiểm tra ngay sau khi mount và sau 500ms để đảm bảo layout và scale đã ổn định
+    handleScroll();
+    const timer = setTimeout(handleScroll, 500);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      clearTimeout(timer);
+    };
+  }, [quoteVisible]);
 
   return (
     <section
@@ -265,7 +293,8 @@ export default function Scene05NarrowingPressure() {
           </section>
 
           <blockquote
-            className="scene05-quote scene05-reveal scene05-reveal--quote"
+            ref={quoteRef}
+            className={`scene05-quote${quoteVisible ? " is-quote-visible" : ""}`}
             style={{ "--scene05-quote-frame": `url(${scene05QuoteFrame})` }}
           >
             <span className="scene05-quote__text">

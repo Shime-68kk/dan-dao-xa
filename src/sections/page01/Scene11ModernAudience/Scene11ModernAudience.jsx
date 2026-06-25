@@ -47,10 +47,10 @@ const SCENE11_STEPS = [
     ],
     sourceLines: [
       "Theo báo cáo Vietnam Digital Music",
-      "Landscape 2025-2026 của RMIT Việt Nam",
+      "Landscape 2024-2026 của RMIT Việt Nam",
     ],
     body:
-      "Xu hướng này phần nào được phản ánh qua sự thay đổi trong thị hiếu âm nhạc của khán giả Việt Nam. Theo báo cáo Vietnam Digital Music Landscape 2025-2026 của RMIT Việt Nam, tỷ lệ thể loại âm nhạc được yêu thích cho thấy nhạc truyền thống đã tăng từ 6,8% lên 15,1% chỉ sau một năm khảo sát. Dù vẫn chưa thể cạnh tranh với các dòng nhạc đại chúng như pop hay ballad, mức tăng hơn gấp đôi cho thấy âm nhạc truyền thống đang dần tìm được vị trí rõ nét hơn trong đời sống âm nhạc đương đại.",
+      "Xu hướng này phần nào được phản ánh qua sự thay đổi trong thị hiếu âm nhạc của khán giả Việt Nam. Theo báo cáo Vietnam Digital Music Landscape 2024-2026 của RMIT Việt Nam, tỷ lệ thể loại âm nhạc được yêu thích cho thấy nhạc truyền thống đã tăng từ 6,8% lên 15,1% chỉ sau một năm khảo sát. Dù vẫn chưa thể cạnh tranh với các dòng nhạc đại chúng như pop hay ballad, mức tăng hơn gấp đôi cho thấy âm nhạc truyền thống đang dần tìm được vị trí rõ nét hơn trong đời sống âm nhạc đương đại.",
   },
   {
     id: "part-2",

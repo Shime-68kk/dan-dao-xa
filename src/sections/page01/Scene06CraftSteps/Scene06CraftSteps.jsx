@@ -371,15 +371,28 @@ export default function Scene06CraftSteps() {
     height: typeof window === "undefined" ? BASE_HEIGHT : window.innerHeight,
   }));
 
+  const frameSizeRef = useRef(frameSize);
+  useEffect(() => {
+    frameSizeRef.current = frameSize;
+  }, [frameSize]);
+
   useEffect(() => {
     let frame = 0;
     const updateFrameSize = () => {
       if (frame) window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
         const visualViewport = window.visualViewport;
-        setFrameSize({
-          width: window.innerWidth,
-          height: visualViewport?.height || window.innerHeight,
+        const newWidth = window.innerWidth;
+        const newHeight = visualViewport?.height || window.innerHeight;
+
+        setFrameSize((prev) => {
+          // Trên thiết bị di động (chiều rộng < 768px), bỏ qua thay đổi chiều cao (do thanh địa chỉ ẩn/hiện)
+          // để tránh kích thước slide liên tục bị tính toán lại gây giật lắc khi cuộn chuột.
+          const isMobile = newWidth < 768;
+          if (isMobile && prev.width === newWidth) {
+            return prev;
+          }
+          return { width: newWidth, height: newHeight };
         });
       });
     };
@@ -402,7 +415,8 @@ export default function Scene06CraftSteps() {
 
     const updateActiveGroup = () => {
       const rect = node.getBoundingClientRect();
-      const viewportHeight = window.innerHeight || 1;
+      // Sử dụng chiều cao frameSize ổn định từ ref để tránh layout thrashing khi cuộn trên di động
+      const viewportHeight = frameSizeRef.current.height || window.innerHeight || 1;
       const scrollableDistance = Math.max(1, rect.height - viewportHeight);
       const rawProgress = -rect.top / scrollableDistance;
       const progress = Math.min(1, Math.max(0, rawProgress));

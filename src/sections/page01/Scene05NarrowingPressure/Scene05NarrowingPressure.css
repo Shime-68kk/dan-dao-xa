@@ -382,7 +382,7 @@
 .scene05-stat strong {
   color: #b7502e;
   font-family: var(--font-client-courier, "Courier New", monospace);
-  font-size: 43px;
+  font-size: 42.5px;
   font-weight: 800;
   line-height: 1;
 }
@@ -481,7 +481,8 @@
   pointer-events: none;
   content: "";
   opacity: 0;
-  transform: scale(0.985);
+  transform: scale3d(0.985, 0.985, 1);
+  will-change: opacity, transform;
   transition:
     opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 760ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -489,11 +490,11 @@
   filter: drop-shadow(0 0 0 rgba(183, 80, 46, 0));
 }
 
-.scene05-pressure.is-visible .scene05-quote::before {
+.scene05-quote.is-quote-visible::before {
   opacity: 1;
-  transform: scale(1);
+  transform: scale3d(1, 1, 1);
   filter: drop-shadow(0 8px 14px rgba(150, 83, 22, 0.16));
-  transition-delay: 1480ms;
+  transition-delay: 300ms;
 }
 
 .scene05-quote__text {
@@ -507,13 +508,12 @@
   overflow: hidden;
   opacity: 0;
   clip-path: inset(0 100% 0 0);
-  transform: translateY(4px);
-  text-align: justify;
-  text-justify: inter-word;
+  transform: translate3d(0, 4px, 0);
+  will-change: opacity, clip-path, transform;
 }
 
-.scene05-pressure.is-visible .scene05-quote__text {
-  animation: scene05QuoteWrite 2100ms cubic-bezier(0.22, 1, 0.36, 1) 1820ms forwards;
+.scene05-quote.is-quote-visible .scene05-quote__text {
+  animation: scene05QuoteWrite 2100ms cubic-bezier(0.22, 1, 0.36, 1) 680ms forwards;
 }
 
 @keyframes scene05QuoteWrite {
@@ -598,9 +598,7 @@
   --scene05-reveal-delay: 1320ms;
 }
 
-.scene05-reveal--quote {
-  --scene05-reveal-delay: 1460ms;
-}
+
 
 
 
