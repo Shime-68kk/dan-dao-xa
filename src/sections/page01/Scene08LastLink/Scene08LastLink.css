@@ -142,6 +142,9 @@
   font-size: 14.3px;
   line-height: 1.5;
   color: #f3eee4;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.34);
 }
 
@@ -259,7 +262,7 @@
   top: 820px;
   width: 420px;
   line-height: 1.45;
-  text-align: center;
+  text-align: justify;
 }
 
 .scene08__return-copy {

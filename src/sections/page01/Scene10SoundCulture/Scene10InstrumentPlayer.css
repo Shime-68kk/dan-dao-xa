@@ -418,6 +418,9 @@
   line-height: 1.5;
   font-weight: 700;
   color: rgba(255, 242, 222, 0.9);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
 }
 
 .scene10-player__detail-chips {

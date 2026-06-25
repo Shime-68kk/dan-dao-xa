@@ -271,6 +271,9 @@
 
 .scene04-right-text p {
   margin: 0;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
 }
 
 .scene04-bottom-text {
@@ -286,6 +289,9 @@
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.58;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
   text-shadow:
     0 2px 0 rgba(0, 0, 0, 0.32),
     0 5px 12px rgba(0, 0, 0, 0.56);

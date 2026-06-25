@@ -161,7 +161,9 @@
   font-weight: 500;
   letter-spacing: 0.01em;
   color: rgba(255, 246, 232, 0.92);
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
   text-shadow: 0 3px 9px rgba(0, 0, 0, 0.48);
 }
 
@@ -228,7 +230,9 @@
   font-weight: 500;
   letter-spacing: 0.01em;
   color: #3a2218;
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
   background: #f3cd78;
   box-shadow:
     0 14px 28px rgba(0, 0, 0, 0.22),

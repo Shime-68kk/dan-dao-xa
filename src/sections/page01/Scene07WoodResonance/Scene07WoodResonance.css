@@ -143,6 +143,9 @@
   font-size: 14px;
   line-height: 1.45;
   color: #f3eee4;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
 }
 
 .scene07__column-body--one {

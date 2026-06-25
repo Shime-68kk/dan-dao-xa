@@ -48,7 +48,10 @@
   font-weight: 500;
   letter-spacing: 0.012em;
   color: rgba(255, 255, 255, 0.88);
-  text-align: right;
+  text-align: justify;
+  text-align-last: right;
+  text-justify: inter-word;
+  hyphens: none;
   text-indent: 0;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.48);
   opacity: 0;
@@ -71,6 +74,7 @@
   width: 560px;
   text-align: justify;
   text-align-last: right;
+  text-justify: inter-word;
   text-indent: 0;
   hyphens: none;
   word-spacing: -0.02em;

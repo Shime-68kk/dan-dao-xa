@@ -161,6 +161,7 @@
   hyphens: none;
   text-align: justify;
   text-align-last: left;
+  text-justify: inter-word;
   text-indent: 0;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.58);
   word-spacing: -0.02em;

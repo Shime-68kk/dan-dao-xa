@@ -200,7 +200,9 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.55;
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
   text-shadow: 0 2px 7px rgba(0, 0, 0, 0.62);
 }
 

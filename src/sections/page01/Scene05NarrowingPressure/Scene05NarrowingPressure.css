@@ -45,7 +45,9 @@
   font-style: italic;
   font-weight: 400;
   line-height: 1.55;
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
   text-shadow: 0 2px 7px rgba(0, 0, 0, 0.48);
 }
 
@@ -225,6 +227,9 @@
   font-size: 13.4px;
   font-weight: 400;
   line-height: 1.36;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
 }
 
 .scene05-pressure-card__pills {
@@ -319,6 +324,9 @@
   font-size: 15.8px;
   font-weight: 700;
   line-height: 1.36;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
 }
 
 .scene05-comparison__row strong {
@@ -425,6 +433,9 @@
   font-size: 16.4px;
   font-weight: 400;
   line-height: 1.58;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
 }
 
 .scene05-quote {
