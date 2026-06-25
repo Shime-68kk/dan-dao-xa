@@ -122,7 +122,8 @@ export default function Scene05NarrowingPressure() {
     if (!node) return undefined;
 
     const ro = new ResizeObserver(([entry]) => {
-      setContentHeight(entry.contentRect.height);
+      const height = entry.borderBoxSize?.[0]?.blockSize ?? node.offsetHeight;
+      setContentHeight(height);
     });
     ro.observe(node);
     return () => ro.disconnect();
@@ -176,7 +177,7 @@ export default function Scene05NarrowingPressure() {
       aria-label="Khi thanh âm cũ không còn chỗ đứng"
       style={{
         "--scene05-scale": scale,
-        "--scene05-rendered-height": `${contentHeight * scale}px`,
+        "--scene05-rendered-height": `${contentHeight * scale + 6}px`,
       }}
     >
       <div className="scene05__scale-shell">
